@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class CyberpunkButton extends StatefulWidget {
-  final Widget relaxed;
-  final Widget pressed;
+  final Color color;
   final VoidCallback onTap;
+  final String label;
   const CyberpunkButton({
-    required this.relaxed,
-    required this.pressed,
+    required this.color,
+    required this.label,
     required this.onTap,
     super.key,
   });
@@ -33,11 +34,79 @@ class _CyberpunkButtonState extends State<CyberpunkButton> {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: _onTap,
-      child: AnimatedSwitcher(
-        duration: const Duration(milliseconds: 50),
-        child: _isPressed ? widget.pressed : widget.relaxed,
-      ),
-    );
+          onTap: _onTap,
+          child: Stack(
+            alignment: Alignment.center,
+            children: [
+              const SizedBox(height: 70.0, width: 140.0),
+              ClipPath(
+                clipper: ButtonClipper(),
+                child: Container(
+                  color: widget.color,
+                  padding: const EdgeInsets.symmetric(
+                    vertical: 20.0,
+                    horizontal: 26.0,
+                  ),
+                  child: Text(
+                    widget.label,
+                    style: GoogleFonts.chakraPetch(
+                      fontWeight: FontWeight.w600,
+                      fontSize: 16.0,
+                      color: Colors.black,
+                    ),
+                  ),
+                ),
+              ),
+              if (!_isPressed)
+                Padding(
+                  padding: const EdgeInsets.only(
+                    bottom: 8.0,
+                    right: 8.0,
+                  ),
+                  child: ClipPath(
+                    clipper: ButtonClipper(),
+                    child: Container(
+                      color: Colors.black,
+                      padding: const EdgeInsets.symmetric(
+                        vertical: 20.0,
+                        horizontal: 26.0,
+                      ),
+                      child: Text(
+                        widget.label,
+                        style: GoogleFonts.chakraPetch(
+                          fontWeight: FontWeight.w600,
+                          fontSize: 16.0,
+                          color: widget.color,
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+            ],
+          ),
+        );
   }
 }
+
+class ButtonClipper extends CustomClipper<Path> {
+  @override
+  Path getClip(Size size) {
+    return Path()
+      ..moveTo(16, 0)
+      ..lineTo(size.width, 0)
+      ..lineTo(size.width, size.height / 4)
+      ..lineTo(size.width - 5.0, size.height / 4 + 5.0)
+      ..lineTo(size.width - 5.0, size.height * 3 / 4 - 5.0)
+      ..lineTo(size.width, size.height * 3 / 4)
+      ..lineTo(size.width, size.height)
+      ..lineTo(0.0, size.height)
+      ..lineTo(0.0, 16.0)
+      ..close();
+  }
+
+  @override
+  bool shouldReclip(ButtonClipper oldClipper) {
+    return false;
+  }
+}
+

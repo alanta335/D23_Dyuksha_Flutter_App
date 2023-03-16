@@ -32,9 +32,6 @@ dependencies:
     sdk: flutter
   google_fonts: ^4.0.3
   carousel_slider: ^4.2.1
-  
-
-  flutter_svg: ^2.0.4
   url_launcher: ^6.1.10
   motion_toast: ^2.6.5
   flutter_native_splash:
