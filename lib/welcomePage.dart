@@ -1,3 +1,4 @@
+import 'package:d23_dyuksha/FadeIndexedStack.dart';
 import 'package:d23_dyuksha/mainscreen.dart';
 import 'package:d23_dyuksha/screens/about_screen/about_screen.dart';
 import 'package:d23_dyuksha/screens/event_screen/event_screen.dart';
@@ -76,7 +77,7 @@ class _WelcomePageState extends State<WelcomePage> {
                   label: "About")
             ]),
       ),
-      body: IndexedStack(
+      body: FadeIndexedStack(
         index: _currentIndex,
         children: pageList,
       ),
