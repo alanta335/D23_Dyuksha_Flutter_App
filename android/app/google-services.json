@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "18744469513",
+    "project_id": "d23dyuksha",
+    "storage_bucket": "d23dyuksha.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:18744469513:android:386302bdc32411a630b0d8",
+        "android_client_info": {
+          "package_name": "com.dyuksha.d23"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "18744469513-a3jcg3od407d4abngucks3oknist7kao.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.dyuksha.d23",
+            "certificate_hash": "9f1c79a4550c694c7c1882fc5685db4fa05c86c1"
+          }
+        },
+        {
+          "client_id": "18744469513-h0iofu5fie1pi4o8rqeaqtc5dk3i592l.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.dyuksha.d23",
+            "certificate_hash": "dca1eca602ebbcc6a2ab1e8d19e8fc4fa0cfdcdf"
+          }
+        },
+        {
+          "client_id": "18744469513-hj6e4oiamhqq914j0br8dtmj4ujokueu.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAK_RxzSKzbwAXZ8JgTg9tvrHfclbMp1dU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "18744469513-hj6e4oiamhqq914j0br8dtmj4ujokueu.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
