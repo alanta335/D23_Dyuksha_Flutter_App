@@ -32,7 +32,8 @@ class MyApp extends StatelessWidget {
               duration: const Duration(milliseconds: 1200),
               builder: (BuildContext context, double opacity, Widget? child) {
                 return Opacity(
-                    opacity: opacity, child: Image.asset("assets/dyuksha.png"));
+                    opacity: opacity,
+                    child: Image.asset("assets/dyuksha_default_splash.png"));
               }),
           splashIconSize: 10000,
           duration: 1000,
