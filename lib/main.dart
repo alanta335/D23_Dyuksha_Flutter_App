@@ -1,9 +1,11 @@
+import 'package:animated_splash_screen/animated_splash_screen.dart';
 import 'package:d23_dyuksha/mainscreen.dart';
 import 'package:d23_dyuksha/widgets/cypberpunk_background_scaffold.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:page_transition/page_transition.dart';
 
 import 'homescreen.dart';
 
@@ -19,11 +21,25 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
-      home: const MyHomePage(),
-    );
+        theme: ThemeData(
+          primarySwatch: Colors.blue,
+        ),
+        home: AnimatedSplashScreen(
+          nextScreen: MyHomePage(),
+          splash: TweenAnimationBuilder<double>(
+              tween: Tween<double>(begin: 1.0, end: 0.0),
+              curve: Curves.ease,
+              duration: const Duration(milliseconds: 1200),
+              builder: (BuildContext context, double opacity, Widget? child) {
+                return Opacity(
+                    opacity: opacity, child: Image.asset("assets/dyuksha.png"));
+              }),
+          splashIconSize: 10000,
+          duration: 1000,
+          backgroundColor: Colors.black,
+          splashTransition: SplashTransition.scaleTransition,
+          pageTransitionType: PageTransitionType.fade,
+        ));
   }
 }
 
