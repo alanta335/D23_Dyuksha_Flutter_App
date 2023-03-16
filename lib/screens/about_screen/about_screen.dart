@@ -1,8 +1,8 @@
+import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
+
 import '../../widgets/cypberpunk_background_scaffold.dart';
 import '/widgets/dyuksha_logo_mini.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:flutter/material.dart';
-
 import 'about_dyuksha_title.dart';
 
 class AboutScreen extends StatelessWidget {
