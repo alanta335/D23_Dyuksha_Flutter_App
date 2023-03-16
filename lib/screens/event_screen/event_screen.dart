@@ -3,7 +3,6 @@ import '../../widgets/dyuksha_logo_mini.dart';
 import '/widgets/cyberpunk_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:motion_toast/motion_toast.dart';
 import 'package:url_launcher/url_launcher.dart';
