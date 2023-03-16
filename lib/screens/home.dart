@@ -7,8 +7,14 @@ import 'package:google_fonts/google_fonts.dart';
 
 import '../widgets/cypberpunk_background_scaffold.dart';
 
-class Home extends StatelessWidget {
+class Home extends StatefulWidget {
   const Home({super.key});
+
+  @override
+  State<Home> createState() => _HomeState();
+}
+
+class _HomeState extends State<Home> with AutomaticKeepAliveClientMixin<Home> {
   @override
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
@@ -87,4 +93,8 @@ class Home extends StatelessWidget {
       ),
     );
   }
+
+  @override
+  // TODO: implement wantKeepAlive
+  bool get wantKeepAlive => true;
 }

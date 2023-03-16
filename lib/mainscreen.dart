@@ -19,7 +19,8 @@ Query users = FirebaseFirestore.instance
     .doc('events')
     .collection('day1');
 
-class _mainScreenState extends State<mainScreen> {
+class _mainScreenState extends State<mainScreen>
+    with AutomaticKeepAliveClientMixin<mainScreen> {
   @override
   Widget build(BuildContext context) {
     int day = 1;
@@ -73,7 +74,7 @@ class _mainScreenState extends State<mainScreen> {
                             ),
                           ),
                         ),
-                        Expanded(
+                        const Expanded(
                           child: SizedBox(
                             width: 15,
                             height: 100,
@@ -196,6 +197,10 @@ class _mainScreenState extends State<mainScreen> {
       },
     );
   }
+
+  @override
+  // TODO: implement wantKeepAlive
+  bool get wantKeepAlive => true;
 }
 
 class CurvedPainter extends CustomPainter {

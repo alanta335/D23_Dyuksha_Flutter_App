@@ -18,7 +18,8 @@ class TalkWithRJScreen extends StatefulWidget {
   State<TalkWithRJScreen> createState() => _TalkWithRJScreenState();
 }
 
-class _TalkWithRJScreenState extends State<TalkWithRJScreen> {
+class _TalkWithRJScreenState extends State<TalkWithRJScreen>
+    with AutomaticKeepAliveClientMixin<TalkWithRJScreen> {
   late TextEditingController _nameController;
   late TextEditingController _questionController;
 
@@ -105,4 +106,8 @@ class _TalkWithRJScreenState extends State<TalkWithRJScreen> {
       ),
     );
   }
+
+  @override
+  // TODO: implement wantKeepAlive
+  bool get wantKeepAlive => true;
 }
