@@ -31,6 +31,7 @@ dependencies:
   flutter:
     sdk: flutter
   google_fonts: ^4.0.3
+  flutter_native_splash:
 
 
   # The following adds the Cupertino Icons font to your application.
@@ -40,6 +41,14 @@ dependencies:
   firebase_auth: ^4.2.10
   google_sign_in: ^6.0.2
   animated_splash_screen:
+flutter_native_splash:
+  ios: false
+  web: false
+  image: assets/Black.png
+  color: "#000000"
+  android_12:
+    image: assets/Black.png
+    color: "#000000"
 
 dev_dependencies:
   flutter_test:
