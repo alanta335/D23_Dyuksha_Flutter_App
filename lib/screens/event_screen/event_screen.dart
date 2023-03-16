@@ -46,7 +46,7 @@ class EventScreen extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          const DyukshaLogoMini(),
+          const SafeArea(child: DyukshaLogoMini()),
           const SizedBox(height: 16.0),
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
