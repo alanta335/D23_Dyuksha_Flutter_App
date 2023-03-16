@@ -32,7 +32,7 @@ class _homeScreenState extends State<homeScreen> {
             } else if (snapshot.hasData) {
               return mainScreen();
             } else {
-              return MyHomePage(title: 'Flutter Demo Home Page');
+              return MyHomePage();
             }
           }),
     );
