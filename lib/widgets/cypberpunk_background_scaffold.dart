@@ -26,7 +26,7 @@ class CyberpunkBackgroundScaffold extends StatelessWidget {
               backgroundColor: const Color(0x66010101),
               //backgroundColor: Colors.white,
 
-              body:child,
+              body: child,
             ),
           ),
         ),
