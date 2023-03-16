@@ -1,9 +1,10 @@
-import 'package:d23_dyuksha/FadeIndexedStack.dart';
+import 'package:d23_dyuksha/widgets/FadeIndexedStack.dart';
 import 'package:d23_dyuksha/mainscreen.dart';
 import 'package:d23_dyuksha/screens/about_screen/about_screen.dart';
 import 'package:d23_dyuksha/screens/event_screen/event_screen.dart';
 import 'package:d23_dyuksha/screens/home.dart';
 import 'package:d23_dyuksha/screens/talk_with_rj_screen/talk_with_rj_screen.dart';
+import 'package:d23_dyuksha/widgets/customScrollPhysics.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter/src/widgets/framework.dart';
@@ -20,6 +21,13 @@ class WelcomePage extends StatefulWidget {
 }
 
 class _WelcomePageState extends State<WelcomePage> {
+  final _pageViewController = PageController();
+  @override
+  void dispose() {
+    _pageViewController.dispose();
+    super.dispose();
+  }
+
   int _currentIndex = 0;
   var pageList = <Widget>[
     Home(),
@@ -53,7 +61,11 @@ class _WelcomePageState extends State<WelcomePage> {
             //backgroundColor: Colors.transparent,
             onTap: (int index) {
               setState(() {
-                _currentIndex = index;
+                _pageViewController.animateToPage(
+                  curve: Curves.linear,
+                  index,
+                  duration: Duration(milliseconds: 200),
+                );
               });
             },
             backgroundColor: Colors.white.withOpacity(0.2),
@@ -77,10 +89,20 @@ class _WelcomePageState extends State<WelcomePage> {
                   label: "About")
             ]),
       ),
-      body: FadeIndexedStack(
-        index: _currentIndex,
+      body: PageView(
+        physics: const CustomPageViewScrollPhysics(),
+        controller: _pageViewController,
         children: pageList,
+        onPageChanged: (index) {
+          setState(() {
+            _currentIndex = index;
+          });
+        },
       ),
+      // body: FadeIndexedStack(
+      //   index: _currentIndex,
+      //   children: pageList,
+      // ),
     );
   }
 }
