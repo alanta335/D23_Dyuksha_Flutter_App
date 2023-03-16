@@ -1,8 +1,13 @@
+import '../../widgets/cyberpunk_button.dart';
 import '../../widgets/cypberpunk_background_scaffold.dart';
 import '/widgets/dyuksha_logo_mini.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import 'package:fluttertoast/fluttertoast.dart';
+
 import 'package:flutter/material.dart';
+
+import 'package:cloud_firestore/cloud_firestore.dart' as cf;
 
 import 'cyberpunk_textfield.dart';
 
@@ -72,10 +77,32 @@ class _TalkWithRJScreenState extends State<TalkWithRJScreen> {
                 ),
               ],
             ),
+            Padding(
+              padding: const EdgeInsets.fromLTRB(0, 50, 0, 0),
+              child: CyberpunkButton(
+                color: Color.fromARGB(255, 251, 255, 6),
+                label: 'Send',
+                onTap: () {
+                  cf.FirebaseFirestore.instance.collection('RJ').doc().set({
+                    "Name": _nameController.text.toString(),
+                    "Your Question": _questionController.text.toString(),
+                  });
+                  _nameController.text = "";
+                  _questionController.text = "";
+                  Fluttertoast.showToast(
+                    msg: "Send successful",
+                    toastLength: Toast.LENGTH_SHORT,
+                    timeInSecForIosWeb: 3,
+                    backgroundColor: Colors.yellowAccent,
+                    textColor: Color.fromARGB(255, 0, 0, 0),
+                    fontSize: 16.0,
+                  );
+                },
+              ),
+            ),
           ],
         ),
       ),
     );
   }
 }
-
