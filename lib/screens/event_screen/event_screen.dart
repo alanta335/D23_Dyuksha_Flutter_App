@@ -84,10 +84,8 @@ class EventScreen extends StatelessWidget {
           ),
           const SizedBox(height: 20.0),
           CyberpunkButton(
-            relaxed:
-                SvgPicture.asset('assets/images/register_button_relaxed.svg'),
-            pressed:
-                SvgPicture.asset('assets/images/register_button_pressed.svg'),
+           color: event.getColorOfDay(),
+           label: "REGISTER",
             onTap: () => _onRegisterButtonTapped(context),
           ),
           const SizedBox(height: 20.0),
