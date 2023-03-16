@@ -14,7 +14,35 @@
       },
       "oauth_client": [
         {
+<<<<<<< HEAD
           "client_id": "18744469513-q6ga8r7hvr9euu7seejjs3upgkg2rgq3.apps.googleusercontent.com",
+=======
+          "client_id": "18744469513-37mf79cm84sf1qe2dhk8od0qvlsamefj.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.dyuksha.d23",
+            "certificate_hash": "92d46737731fef024bf2ba3ddbc603730bf33280"
+          }
+        },
+        {
+          "client_id": "18744469513-a3jcg3od407d4abngucks3oknist7kao.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.dyuksha.d23",
+            "certificate_hash": "9f1c79a4550c694c7c1882fc5685db4fa05c86c1"
+          }
+        },
+        {
+          "client_id": "18744469513-h0iofu5fie1pi4o8rqeaqtc5dk3i592l.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.dyuksha.d23",
+            "certificate_hash": "dca1eca602ebbcc6a2ab1e8d19e8fc4fa0cfdcdf"
+          }
+        },
+        {
+          "client_id": "18744469513-hj6e4oiamhqq914j0br8dtmj4ujokueu.apps.googleusercontent.com",
+>>>>>>> d154422d3d22938d73e1f06a270884765fdf6512
           "client_type": 3
         }
       ],
@@ -27,7 +55,11 @@
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
+<<<<<<< HEAD
               "client_id": "18744469513-q6ga8r7hvr9euu7seejjs3upgkg2rgq3.apps.googleusercontent.com",
+=======
+              "client_id": "18744469513-hj6e4oiamhqq914j0br8dtmj4ujokueu.apps.googleusercontent.com",
+>>>>>>> d154422d3d22938d73e1f06a270884765fdf6512
               "client_type": 3
             }
           ]
