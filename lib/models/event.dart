@@ -11,6 +11,7 @@ class Event {
   final String imageURL;
   final String about;
   final String registrationURL;
+  final TimeOfDay timeOfDay;
 
   Event({
     required this.name,
@@ -19,6 +20,7 @@ class Event {
     required this.imageURL,
     required this.about,
     required this.registrationURL,
+    required this.timeOfDay,
   });
 
   Color getColorOfDay(){
