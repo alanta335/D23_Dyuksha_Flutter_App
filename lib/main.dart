@@ -1,4 +1,3 @@
-import 'package:d23_dyuksha/screens/home.dart';
 import 'package:animated_splash_screen/animated_splash_screen.dart';
 import 'package:d23_dyuksha/data/dummy_events.dart';
 import 'package:d23_dyuksha/mainscreen.dart';
