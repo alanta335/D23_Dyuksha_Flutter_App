@@ -11,6 +11,7 @@ import 'screens/day_wise_event_screen/cyberpunk_tab_holder.dart';
 import 'screens/day_wise_event_screen/day_tab_bar.dart';
 import 'widgets/cypberpunk_background_scaffold.dart';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class mainScreen extends StatefulWidget {
   const mainScreen({super.key});
@@ -133,79 +134,94 @@ class _mainScreenState extends State<mainScreen>
                           snapshot.data!.docs.map((DocumentSnapshot document) {
                         return Padding(
                             padding: const EdgeInsets.fromLTRB(10, 10, 0, 5),
-                            child: ClipPath(
-                              clipper: EventTileClipper(),
-                              child: Container(
-                                margin:
-                                    const EdgeInsets.symmetric(vertical: 6.0),
-                                height: 80.0,
-                                decoration: BoxDecoration(
-                                  color: Colors.white.withOpacity(0.3),
-                                ),
-                                child: Row(
-                                  children: [
-                                    ClipPath(
-                                      clipper: EventTileImageClipper(),
-                                      child: SizedBox(
-                                        height: 80.0,
-                                        width: 80.0,
-                                        child: Image.network(
-                                          document['url'].toString(),
-                                          fit: BoxFit.contain,
-                                          filterQuality: FilterQuality.low,
+                            child: GestureDetector(
+                              onTap: () async {
+                                Uri url =
+                                    Uri.parse(document['ticket'].toString());
+                                try {
+                                  await launchUrl(url,
+                                      mode: LaunchMode.externalApplication);
+                                } catch (e) {
+                                  throw 'Could not launch $url $e';
+                                }
+                              },
+                              child: ClipPath(
+                                clipper: EventTileClipper(),
+                                child: Container(
+                                  margin:
+                                      const EdgeInsets.symmetric(vertical: 6.0),
+                                  height: 80.0,
+                                  decoration: BoxDecoration(
+                                    color: Colors.white.withOpacity(0.3),
+                                  ),
+                                  child: Row(
+                                    children: [
+                                      ClipPath(
+                                        clipper: EventTileImageClipper(),
+                                        child: SizedBox(
+                                          height: 80.0,
+                                          width: 80.0,
+                                          child: Image.network(
+                                            document['url'].toString(),
+                                            fit: BoxFit.contain,
+                                            filterQuality: FilterQuality.low,
+                                          ),
                                         ),
                                       ),
-                                    ),
-                                    const SizedBox(width: 6.0),
-                                    Expanded(
-                                      child: Row(
-                                        children: [
-                                          Expanded(
-                                            child: Text(
-                                              document['eventname'].toString(),
-                                              style: GoogleFonts.chakraPetch(
-                                                fontWeight: FontWeight.w300,
-                                                fontSize: 11.0,
-                                                color: Colors.white,
+                                      const SizedBox(width: 6.0),
+                                      Expanded(
+                                        child: Row(
+                                          children: [
+                                            Expanded(
+                                              child: Text(
+                                                document['eventname']
+                                                    .toString(),
+                                                style: GoogleFonts.chakraPetch(
+                                                  fontWeight: FontWeight.w300,
+                                                  fontSize: 11.0,
+                                                  color: Colors.white,
+                                                ),
                                               ),
                                             ),
-                                          ),
-                                          Expanded(
-                                            child: Stack(
-                                              alignment: Alignment.centerLeft,
-                                              children: [
-                                                Text(
-                                                  document['type'].toString(),
-                                                  style:
-                                                      GoogleFonts.chakraPetch(
-                                                    fontWeight: FontWeight.w300,
-                                                    fontSize: 11.0,
-                                                    color: Colors.white,
-                                                  ),
-                                                ),
-                                                Padding(
-                                                  padding:
-                                                      const EdgeInsets.only(
-                                                          top: 30.0,
-                                                          left: 25.0),
-                                                  child: Text(
-                                                    document['time'].toString(),
+                                            Expanded(
+                                              child: Stack(
+                                                alignment: Alignment.centerLeft,
+                                                children: [
+                                                  Text(
+                                                    document['type'].toString(),
                                                     style:
                                                         GoogleFonts.chakraPetch(
                                                       fontWeight:
                                                           FontWeight.w300,
-                                                      fontSize: 9.0,
+                                                      fontSize: 11.0,
                                                       color: Colors.white,
                                                     ),
                                                   ),
-                                                ),
-                                              ],
+                                                  Padding(
+                                                    padding:
+                                                        const EdgeInsets.only(
+                                                            top: 30.0,
+                                                            left: 25.0),
+                                                    child: Text(
+                                                      document['time']
+                                                          .toString(),
+                                                      style: GoogleFonts
+                                                          .chakraPetch(
+                                                        fontWeight:
+                                                            FontWeight.w300,
+                                                        fontSize: 9.0,
+                                                        color: Colors.white,
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
                                             ),
-                                          ),
-                                        ],
+                                          ],
+                                        ),
                                       ),
-                                    ),
-                                  ],
+                                    ],
+                                  ),
                                 ),
                               ),
                             ));
