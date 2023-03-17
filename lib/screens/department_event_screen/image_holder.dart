@@ -2,11 +2,14 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:d23_dyuksha/models/event.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../../widgets/dyuksha_logo_mini.dart';
 import 'clippers.dart';
 
 int index = 0;
+int maxindex = 0;
+var data;
 
 class ImageHolder extends StatelessWidget {
   const ImageHolder({
@@ -166,7 +169,10 @@ class _ImageHolderCenterState extends State<ImageHolderCenter> {
                 ticket: doc.get("ticket"),
               ))
           .toList();
-
+      setState(() {
+        maxindex = allData.length;
+        data = allData;
+      });
       return allData;
     }
 
@@ -219,7 +225,11 @@ class _ImageHolderCenterState extends State<ImageHolderCenter> {
                 IconButton(
                   onPressed: () {
                     setState(() {
-                      index = index - 1;
+                      if (index != 0) {
+                        index = index - 1;
+                      } else {
+                        index = maxindex - 1;
+                      }
                     });
                   },
                   icon: const Icon(
@@ -235,16 +245,27 @@ class _ImageHolderCenterState extends State<ImageHolderCenter> {
                     color: Colors.cyan,
                     borderRadius: BorderRadius.circular(12.0),
                   ),
-                  child: const Icon(
-                    Icons.info_outline_rounded,
-                    color: Colors.black,
-                    size: 32.0,
+                  child: IconButton(
+                    icon: const Icon(
+                      Icons.info_outline_rounded,
+                      color: Colors.black,
+                      size: 32.0,
+                    ),
+                    onPressed: () async {
+                      Uri url = Uri.parse(data[index].ticket);
+                      await launchUrl(url,
+                          mode: LaunchMode.externalApplication);
+                    },
                   ),
                 ),
                 IconButton(
                   onPressed: () {
                     setState(() {
-                      index = index + 1;
+                      if (index < maxindex - 1) {
+                        index = index + 1;
+                      } else {
+                        index = 0;
+                      }
                     });
                   },
                   icon: const Icon(
