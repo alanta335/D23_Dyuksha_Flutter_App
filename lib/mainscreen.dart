@@ -1,3 +1,4 @@
+import 'package:d23_dyuksha/data/dummy_events.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
@@ -5,6 +6,9 @@ import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'list_clipper.dart';
+import 'screens/day_wise_event_screen/clippers.dart';
+import 'screens/day_wise_event_screen/cyberpunk_tab_holder.dart';
+import 'screens/day_wise_event_screen/day_tab_bar.dart';
 import 'widgets/cypberpunk_background_scaffold.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 
@@ -21,7 +25,23 @@ Query users = FirebaseFirestore.instance
     .collection('day1');
 
 class _mainScreenState extends State<mainScreen>
-    with AutomaticKeepAliveClientMixin<mainScreen> {
+    with
+        AutomaticKeepAliveClientMixin<mainScreen>,
+        SingleTickerProviderStateMixin {
+  late TabController _tabController;
+
+  @override
+  void initState() {
+    super.initState();
+    _tabController = TabController(length: 3, vsync: this);
+  }
+
+  @override
+  void dispose() {
+    _tabController.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     int day = 1;
@@ -49,88 +69,60 @@ class _mainScreenState extends State<mainScreen>
               padding: const EdgeInsets.fromLTRB(10, 20, 10, 10),
               child: Column(
                 children: [
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Container(
-                      height: 100,
-                      child: Row(children: [
-                        GestureDetector(
-                          onTap: () {
-                            setState(() {
-                              day = 1;
-                              users = FirebaseFirestore.instance
-                                  .collection('cse')
-                                  .doc('events')
-                                  .collection('day1');
-                            });
-                          },
-                          child: Container(
-                            width: 100,
-                            height: 100,
-                            color: Color.fromARGB(255, 253, 1, 47),
-                            child: Center(
-                              child: Text(
-                                "day 1",
-                              ),
-                            ),
-                          ),
-                        ),
-                        const Expanded(
-                          child: SizedBox(
-                            width: 15,
-                            height: 100,
-                          ),
-                        ),
-                        GestureDetector(
-                          onTap: () {
-                            setState(() {
-                              day = 2;
-                              users = FirebaseFirestore.instance
-                                  .collection('cse')
-                                  .doc('events')
-                                  .collection('day2');
-                            });
-                          },
-                          child: Container(
-                            width: 100,
-                            height: 100,
+                  Container(
+                    margin: const EdgeInsets.symmetric(vertical: 12.0),
+                    height: 40.0,
+                    color: Colors.transparent,
+                    child: LayoutBuilder(builder: (context, constraints) {
+                      return Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        crossAxisAlignment: CrossAxisAlignment.stretch,
+                        children: [
+                          DayTabBar(
+                            width: constraints.maxWidth / 3 - 2.0,
+                            clipper: DayOneTabBarClipper(),
                             color: Color.fromARGB(255, 250, 255, 6),
-                            child: Center(
-                              child: Text(
-                                "day 2",
-                              ),
-                            ),
+                            label: 'DAY 1',
+                            onTap: () {
+                              setState(() {
+                                users = FirebaseFirestore.instance
+                                    .collection('cse')
+                                    .doc('events')
+                                    .collection('day1');
+                              });
+                            },
                           ),
-                        ),
-                        Expanded(
-                          child: SizedBox(
-                            width: 15,
-                            height: 100,
+                          DayTabBar(
+                            width: constraints.maxWidth / 3 - 2.0,
+                            clipper: DayTwoClipper(),
+                            label: "DAY 2",
+                            color: Color.fromARGB(255, 253, 1, 47),
+                            onTap: () {
+                              setState(() {
+                                users = FirebaseFirestore.instance
+                                    .collection('cse')
+                                    .doc('events')
+                                    .collection('day2');
+                              });
+                            },
                           ),
-                        ),
-                        GestureDetector(
-                          onTap: () {
-                            setState(() {
-                              day = 3;
-                              users = FirebaseFirestore.instance
-                                  .collection('cse')
-                                  .doc('events')
-                                  .collection('day3');
-                            });
-                          },
-                          child: Container(
-                            width: 100,
-                            height: 100,
+                          DayTabBar(
+                            width: constraints.maxWidth / 3 - 2.0,
+                            clipper: DayThreeClipper(),
+                            label: "DAY 3",
                             color: Color.fromARGB(255, 2, 214, 242),
-                            child: Center(
-                              child: Text(
-                                "day 3",
-                              ),
-                            ),
+                            onTap: () {
+                              setState(() {
+                                users = FirebaseFirestore.instance
+                                    .collection('cse')
+                                    .doc('events')
+                                    .collection('day3');
+                              });
+                            },
                           ),
-                        ),
-                      ]),
-                    ),
+                        ],
+                      );
+                    }),
                   ),
                   Expanded(
                     child: ListView(
@@ -140,65 +132,82 @@ class _mainScreenState extends State<mainScreen>
                       children:
                           snapshot.data!.docs.map((DocumentSnapshot document) {
                         return Padding(
-                          padding: const EdgeInsets.fromLTRB(10, 10, 0, 5),
-                          child: ClipPath(
-                            clipper: ListClipper(clipDistance: 0),
-                            child: Row(
-                              children: [
-                                Container(
-                                  width: 100,
-                                  height: 100,
-                                  child: Image.network(
-                                    '${document['url']}',
-                                    fit: BoxFit.fill,
-                                    filterQuality: FilterQuality.low,
-                                  ),
+                            padding: const EdgeInsets.fromLTRB(10, 10, 0, 5),
+                            child: ClipPath(
+                              clipper: EventTileClipper(),
+                              child: Container(
+                                margin:
+                                    const EdgeInsets.symmetric(vertical: 6.0),
+                                height: 80.0,
+                                decoration: BoxDecoration(
+                                  color: Colors.white.withOpacity(0.3),
                                 ),
-                                Expanded(
-                                  child: Padding(
-                                    padding:
-                                        const EdgeInsets.fromLTRB(0, 0, 10, 0),
-                                    child: Container(
-                                        height: 100,
-                                        color: Color.fromARGB(180, 0, 0, 0),
-                                        child: Row(
-                                          children: [
-                                            Padding(
-                                              padding:
-                                                  const EdgeInsets.all(8.0),
-                                              child: Container(
-                                                width: 100,
-                                                child: Text(
-                                                  "${document['eventname']}",
-                                                  style: TextStyle(
-                                                    color: Color.fromARGB(
-                                                        255, 255, 255, 255),
+                                child: Row(
+                                  children: [
+                                    ClipPath(
+                                      clipper: EventTileImageClipper(),
+                                      child: SizedBox(
+                                        height: 80.0,
+                                        width: 80.0,
+                                        child: Image.asset(
+                                          document['url'].toString(),
+                                          fit: BoxFit.contain,
+                                        ),
+                                      ),
+                                    ),
+                                    const SizedBox(width: 6.0),
+                                    Expanded(
+                                      child: Row(
+                                        children: [
+                                          Expanded(
+                                            child: Text(
+                                              document['eventname'].toString(),
+                                              style: GoogleFonts.chakraPetch(
+                                                fontWeight: FontWeight.w300,
+                                                fontSize: 11.0,
+                                                color: Colors.white,
+                                              ),
+                                            ),
+                                          ),
+                                          Expanded(
+                                            child: Stack(
+                                              alignment: Alignment.centerLeft,
+                                              children: [
+                                                Text(
+                                                  document['type'].toString(),
+                                                  style:
+                                                      GoogleFonts.chakraPetch(
+                                                    fontWeight: FontWeight.w300,
+                                                    fontSize: 11.0,
+                                                    color: Colors.white,
                                                   ),
                                                 ),
-                                              ),
-                                            ),
-                                            Expanded(
-                                              child: SizedBox(),
-                                            ),
-                                            Padding(
-                                              padding:
-                                                  const EdgeInsets.all(8.0),
-                                              child: Text(
-                                                "${document['type']} \n ${document['time']}",
-                                                style: TextStyle(
-                                                  color: Color.fromARGB(
-                                                      255, 255, 255, 255),
+                                                Padding(
+                                                  padding:
+                                                      const EdgeInsets.only(
+                                                          top: 30.0,
+                                                          left: 25.0),
+                                                  child: Text(
+                                                    document['time'].toString(),
+                                                    style:
+                                                        GoogleFonts.chakraPetch(
+                                                      fontWeight:
+                                                          FontWeight.w300,
+                                                      fontSize: 9.0,
+                                                      color: Colors.white,
+                                                    ),
+                                                  ),
                                                 ),
-                                              ),
+                                              ],
                                             ),
-                                          ],
-                                        )),
-                                  ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ],
                                 ),
-                              ],
-                            ),
-                          ),
-                        );
+                              ),
+                            ));
                       }).toList(),
                     ),
                   ),
