@@ -1,17 +1,15 @@
 import 'package:flutter/material.dart';
 
-enum EventCategory{
-  workshop,proshow
-}
+//enum EventCategory { workshop, proshow }
 
 class Event {
   final String name;
-  final EventCategory eventCategory;
+  final String eventCategory;
   final int day;
   final String imageURL;
   final String about;
   final String registrationURL;
-  final TimeOfDay timeOfDay;
+  final String timeOfDay;
 
   Event({
     required this.name,
@@ -23,7 +21,7 @@ class Event {
     required this.timeOfDay,
   });
 
-  Color getColorOfDay(){
+  Color getColorOfDay() {
     switch (day) {
       case 1:
         return Colors.yellow;
@@ -36,14 +34,14 @@ class Event {
     }
   }
 
-  String getCategoryValue() {
-    switch (eventCategory) {
-      case EventCategory.proshow:
-        return "PROSHOW";
-      case EventCategory.workshop:
-        return "WORKSHOP";
-      default:
-        return "EVENT";
-    }
-  }
+  // String getCategoryValue() {
+  //   switch (eventCategory) {
+  //     case EventCategory.proshow:
+  //       return "PROSHOW";
+  //     case EventCategory.workshop:
+  //       return "WORKSHOP";
+  //     default:
+  //       return "EVENT";
+  //   }
+  // }
 }

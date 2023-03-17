@@ -1,6 +1,8 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 import '../../widgets/cypberpunk_background_scaffold.dart';
+import '../../widgets/listViewFromSnapshot.dart';
 import '/data/dummy_events.dart';
 import '/widgets/dyuksha_logo_mini.dart';
 import 'cyberpunk_tab_holder.dart';
@@ -29,46 +31,71 @@ class _DayWiseEventScreenState extends State<DayWiseEventScreen>
     super.dispose();
   }
 
+  Query? getData(index) {
+    return FirebaseFirestore.instance
+        .collection('cse')
+        .doc('events')
+        .collection('day${index + 1}');
+  }
+
   @override
   Widget build(BuildContext context) {
     return CyberpunkBackgroundScaffold(
-      child: Padding(
-        padding: const EdgeInsets.only(top: 18.0, left: 30.0, right: 30.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            const SafeArea(child: DyukshaLogoMini()),
-            CyberpunkTabBarHolder(tabController: _tabController),
-            const SizedBox(height: 12.0),
-            Expanded(
-              child: TabBarView(controller: _tabController, children: const [
-                ListViewBuilder(),
-                ListViewBuilder(),
-                ListViewBuilder(),
-              ]),
-            ),
-          ],
-        ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          const SafeArea(child: DyukshaLogoMini()),
+          CyberpunkTabBarHolder(tabController: _tabController),
+          const SizedBox(height: 12.0),
+          Expanded(
+            child: TabBarView(controller: _tabController, children: [
+              // ListViewBuilder(),
+              // ListViewBuilder(),
+              // ListViewBuilder(),
+              ListViewFromSnapshot(
+                key: ValueKey<int>(0),
+                users: getData(0),
+              ),
+              ListViewFromSnapshot(
+                key: ValueKey<int>(1),
+                users: getData(1),
+              ),
+              ListViewFromSnapshot(
+                key: ValueKey<int>(2),
+                users: getData(2),
+              ),
+            ]
+                //[
+
+                //   ListViewFromSnapshot(
+                //     key: ValueKey<int>(1),
+                //     users: getData(1),
+                //   ),
+                //   ListViewFromSnapshot(
+                //     key: ValueKey<int>(2),
+                //     users: getData(2),
+                //   ),
+                // ]
+                ),
+          ),
+        ],
       ),
     );
   }
 }
 
-class ListViewBuilder extends StatelessWidget {
-  const ListViewBuilder({
-    super.key,
-  });
+// class ListViewBuilder extends StatelessWidget {
+//   const ListViewBuilder({
+//     super.key,
+//   });
 
-  @override
-  Widget build(BuildContext context) {
-    return ListView.builder(
-      itemCount: events.length,
-      itemBuilder: (context, index) {
-        return EventTile(event: events[index]);
-      },
-    );
-  }
-}
-
-
-
+//   @override
+//   Widget build(BuildContext context) {
+//     return ListView.builder(
+//       itemCount: events.length,
+//       itemBuilder: (context, index) {
+//         return EventTile(event: events[index]);
+//       },
+//     );
+//   }
+// }

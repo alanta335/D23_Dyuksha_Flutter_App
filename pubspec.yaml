@@ -46,6 +46,7 @@ dependencies:
   cloud_firestore: ^4.4.4
   fluttertoast:
   cached_network_image: ^3.2.3
+  transformer_page_view: ^0.1.6
 flutter_native_splash:
   ios: false
   web: false

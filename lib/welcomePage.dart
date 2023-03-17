@@ -1,3 +1,4 @@
+import 'package:d23_dyuksha/screens/day_wise_event_screen/day_wise_event_screen.dart';
 import 'package:d23_dyuksha/widgets/FadeIndexedStack.dart';
 import 'package:d23_dyuksha/mainscreen.dart';
 import 'package:d23_dyuksha/screens/about_screen/about_screen.dart';
@@ -32,7 +33,7 @@ class _WelcomePageState extends State<WelcomePage> {
   var pageList = <Widget>[
     Home(),
     TalkWithRJScreen(),
-    mainScreen(),
+    DayWiseEventScreen(),
     AboutScreen(),
   ];
   @override
