@@ -128,7 +128,8 @@ class _HomeState extends State<Home> with AutomaticKeepAliveClientMixin<Home> {
                         return GestureDetector(
                           onTap: () => Navigator.of(context).push(
                             MaterialPageRoute(
-                              builder: (_) => DepartmentEventScreen(),
+                              builder: (_) =>
+                                  DepartmentEventScreen(dep: Department.cse),
                             ),
                           ),
                           child: Container(

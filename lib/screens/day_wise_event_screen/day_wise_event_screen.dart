@@ -41,44 +41,48 @@ class _DayWiseEventScreenState extends State<DayWiseEventScreen>
   @override
   Widget build(BuildContext context) {
     return CyberpunkBackgroundScaffold(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-          const SafeArea(child: DyukshaLogoMini()),
-          CyberpunkTabBarHolder(tabController: _tabController),
-          const SizedBox(height: 12.0),
-          Expanded(
-            child: TabBarView(controller: _tabController, children: [
-              // ListViewBuilder(),
-              // ListViewBuilder(),
-              // ListViewBuilder(),
-              ListViewFromSnapshot(
-                key: ValueKey<int>(0),
-                users: getData(0),
-              ),
-              ListViewFromSnapshot(
-                key: ValueKey<int>(1),
-                users: getData(1),
-              ),
-              ListViewFromSnapshot(
-                key: ValueKey<int>(2),
-                users: getData(2),
-              ),
-            ]
-                //[
-
-                //   ListViewFromSnapshot(
-                //     key: ValueKey<int>(1),
-                //     users: getData(1),
-                //   ),
-                //   ListViewFromSnapshot(
-                //     key: ValueKey<int>(2),
-                //     users: getData(2),
-                //   ),
-                // ]
+      child: SafeArea(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            DyukshaLogoMini(),
+            Padding(
+              padding: const EdgeInsets.fromLTRB(25, 0, 20, 15),
+              child: CyberpunkTabBarHolder(tabController: _tabController),
+            ),
+            Expanded(
+              child: TabBarView(controller: _tabController, children: [
+                // ListViewBuilder(),
+                // ListViewBuilder(),
+                // ListViewBuilder(),
+                ListViewFromSnapshot(
+                  key: ValueKey<int>(0),
+                  users: getData(0),
                 ),
-          ),
-        ],
+                ListViewFromSnapshot(
+                  key: ValueKey<int>(1),
+                  users: getData(1),
+                ),
+                ListViewFromSnapshot(
+                  key: ValueKey<int>(2),
+                  users: getData(2),
+                ),
+              ]
+                  //[
+
+                  //   ListViewFromSnapshot(
+                  //     key: ValueKey<int>(1),
+                  //     users: getData(1),
+                  //   ),
+                  //   ListViewFromSnapshot(
+                  //     key: ValueKey<int>(2),
+                  //     users: getData(2),
+                  //   ),
+                  // ]
+                  ),
+            ),
+          ],
+        ),
       ),
     );
   }

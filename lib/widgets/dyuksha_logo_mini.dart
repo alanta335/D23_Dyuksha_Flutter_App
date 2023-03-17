@@ -7,13 +7,16 @@ class DyukshaLogoMini extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-        height: 30,
-        width: 30,
-        child: Image.asset(
-          'assets/images/d23_logo_mini.png',
-          color: Colors.white,
-          alignment: Alignment.centerRight,
-        ));
+    return Padding(
+      padding: const EdgeInsets.fromLTRB(0, 0, 20, 10),
+      child: SizedBox(
+          height: 30,
+          width: 30,
+          child: Image.asset(
+            'assets/images/d23_logo_mini.png',
+            color: Colors.white,
+            alignment: Alignment.centerRight,
+          )),
+    );
   }
 }

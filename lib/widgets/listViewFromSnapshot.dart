@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+import '../data/dummy_events.dart';
 import '../models/event.dart';
 import '../screens/day_wise_event_screen/day_tab_bar.dart';
 import '../screens/day_wise_event_screen/event_tile.dart';
@@ -35,12 +36,13 @@ class _ListViewFromSnapshotState extends State<ListViewFromSnapshot> {
         }
 
         return ListView(
-          addAutomaticKeepAlives: false,
+          addAutomaticKeepAlives: true,
           cacheExtent: 300,
           reverse: false,
           children: snapshot.data!.docs.map((DocumentSnapshot document) {
             var ename = document['eventname'].toString();
             var ticketURL = document['ticket'].toString();
+            print(ticketURL);
             Event e = Event(
                 department: Department.cse,
                 name: ename,
@@ -50,8 +52,6 @@ class _ListViewFromSnapshotState extends State<ListViewFromSnapshot> {
                 about: document['description'],
                 registrationURL: ticketURL,
                 timeOfDay: document['time']);
-
-            print(ename);
 
             return EventTile(
               event: e,
