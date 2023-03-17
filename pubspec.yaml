@@ -45,6 +45,7 @@ dependencies:
   animated_splash_screen:
   cloud_firestore: ^4.4.4
   fluttertoast:
+  cached_network_image: ^3.2.3
 flutter_native_splash:
   ios: false
   web: false

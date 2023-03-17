@@ -50,44 +50,48 @@ class _WelcomePageState extends State<WelcomePage> {
     return Scaffold(
       extendBody: true,
       backgroundColor: Colors.transparent,
-      bottomNavigationBar: ClipRRect(
-        borderRadius: const BorderRadius.only(
-            topLeft: Radius.circular(20.0),
-            topRight: Radius.circular(20.0),
-            bottomLeft: Radius.circular(20),
-            bottomRight: Radius.circular(20)),
-        child: BottomNavigationBar(
-            currentIndex: _currentIndex,
-            //backgroundColor: Colors.transparent,
-            onTap: (int index) {
-              setState(() {
-                _pageViewController.animateToPage(
-                  curve: Curves.linear,
-                  index,
-                  duration: Duration(milliseconds: 200),
-                );
-              });
-            },
-            backgroundColor: Colors.white.withOpacity(0.2),
-            type: BottomNavigationBarType.fixed,
-            selectedItemColor: Colors.black,
-            unselectedItemColor: Colors.grey,
-            showSelectedLabels: false,
-            showUnselectedLabels: false,
-            items: const [
-              BottomNavigationBarItem(
-                  icon: ImageIcon(AssetImage("assets/icons/house-2.png")),
-                  label: "Home"),
-              BottomNavigationBarItem(
-                  icon: ImageIcon(AssetImage("assets/icons/radio.png")),
-                  label: "talkWithRJ"),
-              BottomNavigationBarItem(
-                  icon: ImageIcon(AssetImage("assets/icons/video-time.png")),
-                  label: "Schedule"),
-              BottomNavigationBarItem(
-                  icon: ImageIcon(AssetImage("assets/icons/profile-2user.png")),
-                  label: "About")
-            ]),
+      bottomNavigationBar: Padding(
+        padding: const EdgeInsets.fromLTRB(35, 0, 35, 10),
+        child: ClipRRect(
+          borderRadius: const BorderRadius.only(
+              topLeft: Radius.circular(20.0),
+              topRight: Radius.circular(20.0),
+              bottomLeft: Radius.circular(20),
+              bottomRight: Radius.circular(20)),
+          child: BottomNavigationBar(
+              currentIndex: _currentIndex,
+              //backgroundColor: Colors.transparent,
+              onTap: (int index) {
+                setState(() {
+                  _pageViewController.animateToPage(
+                    curve: Curves.linear,
+                    index,
+                    duration: Duration(milliseconds: 200),
+                  );
+                });
+              },
+              backgroundColor: Colors.white.withOpacity(0.2),
+              type: BottomNavigationBarType.fixed,
+              selectedItemColor: Colors.black,
+              unselectedItemColor: Colors.grey,
+              showSelectedLabels: false,
+              showUnselectedLabels: false,
+              items: const [
+                BottomNavigationBarItem(
+                    icon: ImageIcon(AssetImage("assets/icons/house-2.png")),
+                    label: "Home"),
+                BottomNavigationBarItem(
+                    icon: ImageIcon(AssetImage("assets/icons/radio.png")),
+                    label: "talkWithRJ"),
+                BottomNavigationBarItem(
+                    icon: ImageIcon(AssetImage("assets/icons/video-time.png")),
+                    label: "Schedule"),
+                BottomNavigationBarItem(
+                    icon:
+                        ImageIcon(AssetImage("assets/icons/profile-2user.png")),
+                    label: "About")
+              ]),
+        ),
       ),
       body: PageView(
         physics: const CustomPageViewScrollPhysics(),

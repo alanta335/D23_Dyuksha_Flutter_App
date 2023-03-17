@@ -6,6 +6,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'list_clipper.dart';
 import 'widgets/cypberpunk_background_scaffold.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 
 class mainScreen extends StatefulWidget {
   const mainScreen({super.key});
@@ -138,52 +139,64 @@ class _mainScreenState extends State<mainScreen>
                       reverse: false,
                       children:
                           snapshot.data!.docs.map((DocumentSnapshot document) {
-                        return ClipPath(
-                          clipper: ListClipper(clipDistance: 0),
-                          child: Row(
-                            children: [
-                              Container(
-                                width: 100,
-                                height: 100,
-                                child: Image.network('${document['url']}'),
-                              ),
-                              Expanded(
-                                child: Padding(
-                                  padding:
-                                      const EdgeInsets.fromLTRB(0, 0, 10, 0),
-                                  child: Container(
-                                      height: 100,
-                                      color: Color.fromARGB(180, 0, 0, 0),
-                                      child: Row(
-                                        children: [
-                                          Padding(
-                                            padding: const EdgeInsets.all(8.0),
-                                            child: Text(
-                                              "${document['eventname']}",
-                                              style: TextStyle(
-                                                color: Color.fromARGB(
-                                                    255, 255, 255, 255),
-                                              ),
-                                            ),
-                                          ),
-                                          Expanded(
-                                            child: SizedBox(),
-                                          ),
-                                          Padding(
-                                            padding: const EdgeInsets.all(8.0),
-                                            child: Text(
-                                              "${document['type']} \n ${document['time']}",
-                                              style: TextStyle(
-                                                color: Color.fromARGB(
-                                                    255, 255, 255, 255),
-                                              ),
-                                            ),
-                                          ),
-                                        ],
-                                      )),
+                        return Padding(
+                          padding: const EdgeInsets.fromLTRB(10, 10, 0, 5),
+                          child: ClipPath(
+                            clipper: ListClipper(clipDistance: 0),
+                            child: Row(
+                              children: [
+                                Container(
+                                  width: 100,
+                                  height: 100,
+                                  child: Image.network(
+                                    '${document['url']}',
+                                    fit: BoxFit.fill,
+                                    filterQuality: FilterQuality.low,
+                                  ),
                                 ),
-                              ),
-                            ],
+                                Expanded(
+                                  child: Padding(
+                                    padding:
+                                        const EdgeInsets.fromLTRB(0, 0, 10, 0),
+                                    child: Container(
+                                        height: 100,
+                                        color: Color.fromARGB(180, 0, 0, 0),
+                                        child: Row(
+                                          children: [
+                                            Padding(
+                                              padding:
+                                                  const EdgeInsets.all(8.0),
+                                              child: Container(
+                                                width: 100,
+                                                child: Text(
+                                                  "${document['eventname']}",
+                                                  style: TextStyle(
+                                                    color: Color.fromARGB(
+                                                        255, 255, 255, 255),
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                            Expanded(
+                                              child: SizedBox(),
+                                            ),
+                                            Padding(
+                                              padding:
+                                                  const EdgeInsets.all(8.0),
+                                              child: Text(
+                                                "${document['type']} \n ${document['time']}",
+                                                style: TextStyle(
+                                                  color: Color.fromARGB(
+                                                      255, 255, 255, 255),
+                                                ),
+                                              ),
+                                            ),
+                                          ],
+                                        )),
+                                  ),
+                                ),
+                              ],
+                            ),
                           ),
                         );
                       }).toList(),
