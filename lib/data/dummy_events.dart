@@ -5,6 +5,7 @@ import '../constants.dart';
 
 List<Event> events = [
   Event(
+    department: Department.cse,
     timeOfDay: TimeOfDay.now().toString(),
     name: 'PRAGATHI',
     day: 1,
@@ -15,6 +16,7 @@ List<Event> events = [
         "Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unkno",
   ),
   Event(
+    department: Department.cse,
     timeOfDay: TimeOfDay.now().toString(),
     name: 'DJ',
     day: 2,
@@ -25,6 +27,7 @@ List<Event> events = [
         "Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unkno",
   ),
   Event(
+    department: Department.cse,
     timeOfDay: TimeOfDay.now().toString(),
     name: 'PRAGATHI',
     day: 3,
@@ -35,6 +38,7 @@ List<Event> events = [
         "Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unkno",
   ),
   Event(
+    department: Department.cse,
     timeOfDay: TimeOfDay.now().toString(),
     name: 'PRAGATHI',
     day: 1,
@@ -45,6 +49,7 @@ List<Event> events = [
         "Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unkno",
   ),
   Event(
+    department: Department.cse,
     timeOfDay: TimeOfDay.now().toString(),
     name: 'PRAGATHI',
     day: 1,
@@ -55,6 +60,7 @@ List<Event> events = [
         "Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unkno",
   ),
   Event(
+    department: Department.cse,
     timeOfDay: TimeOfDay.now().toString(),
     name: 'PRAGATHI',
     day: 1,

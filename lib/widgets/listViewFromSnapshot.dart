@@ -41,8 +41,8 @@ class _ListViewFromSnapshotState extends State<ListViewFromSnapshot> {
           children: snapshot.data!.docs.map((DocumentSnapshot document) {
             var ename = document['eventname'].toString();
             var ticketURL = document['ticket'].toString();
-            //rvar type
             Event e = Event(
+                department: Department.cse,
                 name: ename,
                 eventCategory: document['type'],
                 day: 1,
@@ -50,7 +50,9 @@ class _ListViewFromSnapshotState extends State<ListViewFromSnapshot> {
                 about: document['description'],
                 registrationURL: ticketURL,
                 timeOfDay: document['time']);
+
             print(ename);
+
             return EventTile(
               event: e,
             );

@@ -1,6 +1,5 @@
 import 'package:animated_splash_screen/animated_splash_screen.dart';
 import 'package:d23_dyuksha/data/dummy_events.dart';
-import 'package:d23_dyuksha/mainscreen.dart';
 import 'package:d23_dyuksha/screens/event_screen/event_screen.dart';
 import 'package:d23_dyuksha/screens/home.dart';
 import 'package:d23_dyuksha/welcomePage.dart';

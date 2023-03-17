@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:d23_dyuksha/models/event.dart';
+import 'package:d23_dyuksha/screens/department_event_screen/department_event_screen.dart';
 import 'package:d23_dyuksha/widgets/cyberpunk_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
@@ -125,7 +126,11 @@ class _HomeState extends State<Home> with AutomaticKeepAliveClientMixin<Home> {
                           int pageViewIndex) {
                         print("$pageViewIndex,$itemIndex");
                         return GestureDetector(
-                          onTap: () {},
+                          onTap: () => Navigator.of(context).push(
+                            MaterialPageRoute(
+                              builder: (_) => DepartmentEventScreen(),
+                            ),
+                          ),
                           child: Container(
                             width: width * 0.8,
                             margin: EdgeInsets.symmetric(horizontal: 2.0),
