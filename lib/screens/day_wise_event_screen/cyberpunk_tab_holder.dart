@@ -14,8 +14,7 @@ class CyberpunkTabBarHolder extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: const EdgeInsets.symmetric(vertical: 12.0),
-      height: 40.0,
+      height: 45.0,
       color: Colors.transparent,
       child: LayoutBuilder(builder: (context, constraints) {
         return Row(
@@ -49,4 +48,3 @@ class CyberpunkTabBarHolder extends StatelessWidget {
     );
   }
 }
-
