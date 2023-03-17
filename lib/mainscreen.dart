@@ -149,9 +149,10 @@ class _mainScreenState extends State<mainScreen>
                                       child: SizedBox(
                                         height: 80.0,
                                         width: 80.0,
-                                        child: Image.asset(
+                                        child: Image.network(
                                           document['url'].toString(),
                                           fit: BoxFit.contain,
+                                          filterQuality: FilterQuality.low,
                                         ),
                                       ),
                                     ),
