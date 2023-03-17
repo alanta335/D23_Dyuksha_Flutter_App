@@ -22,14 +22,14 @@ class EventScreen extends StatelessWidget {
     try {
       result = await launchUrl(Uri.parse(event.registrationURL));
     } on PlatformException catch (e) {
-      print(e.toString());//Log
+      print(e.toString()); //Log
       MotionToast.error(
               description: const Text(
                   "Unable to open the website.\nCheck your internet connection and try again."))
           .show(context);
     }
     if (!result && context.mounted) {
-      print("Something went wrong");//Log
+      print("Something went wrong"); //Log
       MotionToast.error(
               description: const Text(
                   "Unable to open the website.\nCheck your internet connection and try again."))
@@ -51,7 +51,7 @@ class EventScreen extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                event.getCategoryValue().toUpperCase(),
+                event.eventCategory,
                 style: GoogleFonts.chakraPetch(
                   color: Colors.white,
                   fontSize: 18.0,
@@ -83,8 +83,8 @@ class EventScreen extends StatelessWidget {
           ),
           const SizedBox(height: 20.0),
           CyberpunkButton(
-           color: event.getColorOfDay(),
-           label: "REGISTER",
+            color: event.getColorOfDay(),
+            label: "REGISTER",
             onTap: () => _onRegisterButtonTapped(context),
           ),
           const SizedBox(height: 20.0),
@@ -94,6 +94,3 @@ class EventScreen extends StatelessWidget {
     ));
   }
 }
-
-
-
