@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 //enum EventCategory { workshop, proshow }
+enum Department { cse, ec, eee, mech, civil, ice }
 
 class Event {
   final String name;
@@ -10,6 +11,7 @@ class Event {
   final String about;
   final String registrationURL;
   final String timeOfDay;
+  final Department department;
 
   Event({
     required this.name,
@@ -19,6 +21,7 @@ class Event {
     required this.about,
     required this.registrationURL,
     required this.timeOfDay,
+    required this.department,
   });
 
   Color getColorOfDay() {

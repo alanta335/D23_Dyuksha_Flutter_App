@@ -1,6 +1,6 @@
 import 'package:d23_dyuksha/screens/day_wise_event_screen/day_wise_event_screen.dart';
+import 'package:d23_dyuksha/screens/home_screen/home_screen.dart';
 import 'package:d23_dyuksha/widgets/FadeIndexedStack.dart';
-import 'package:d23_dyuksha/mainscreen.dart';
 import 'package:d23_dyuksha/screens/about_screen/about_screen.dart';
 import 'package:d23_dyuksha/screens/event_screen/event_screen.dart';
 import 'package:d23_dyuksha/screens/home.dart';
@@ -31,7 +31,7 @@ class _WelcomePageState extends State<WelcomePage> {
 
   int _currentIndex = 0;
   var pageList = <Widget>[
-    Home(),
+    HomeScreen(),
     TalkWithRJScreen(),
     DayWiseEventScreen(),
     AboutScreen(),
