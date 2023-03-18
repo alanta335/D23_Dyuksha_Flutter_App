@@ -16,18 +16,17 @@ class DepartmentEventScreen extends StatelessWidget {
     return CyberpunkBackgroundScaffold(
       child: Padding(
         padding: const EdgeInsets.all(12.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            SafeArea(child: SizedBox()),
-            Expanded(
-              flex: 2,
-              child: ImageHolder(dep: dep),
-            ),
-            Expanded(
-              child: DarkButtonGroup(),
-            ),
-          ],
+        child: SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              SafeArea(child: SizedBox()),
+              Container(height: 700, child: ImageHolder(dep: dep)),
+              SizedBox(
+                height: 20,
+              )
+            ],
+          ),
         ),
       ),
     );
