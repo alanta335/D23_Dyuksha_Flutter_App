@@ -24,7 +24,7 @@ class ImageHolder extends StatelessWidget {
       return Column(
         children: [
           ImageHolderTop(height: constraints.maxHeight * 0.11, dep: dep),
-          ImageHolderCenter(height: constraints.maxHeight),
+          ImageHolderCenter(height: constraints.maxHeight, dep: dep),
         ],
       );
     });
@@ -99,9 +99,12 @@ class _ImageHolderBottomState extends State<ImageHolderBottom> {
 
 class ImageHolderCenter extends StatefulWidget {
   final double height;
+  final Department dep;
+
   const ImageHolderCenter({
     required this.height,
     super.key,
+    required this.dep,
   });
 
   @override
@@ -155,22 +158,68 @@ class EventList {
 class _ImageHolderCenterState extends State<ImageHolderCenter> {
   @override
   Widget build(BuildContext context) {
-    CollectionReference eventlist = FirebaseFirestore.instance
+    String deps = "";
+    setState(() {
+      if (widget.dep == Department.cse) {
+        deps = "cse";
+      } else if (widget.dep == Department.mech) {
+        deps = "mech";
+      } else if (widget.dep == Department.eee) {
+        deps = "eee";
+      } else if (widget.dep == Department.ec) {
+        deps = "ece";
+      } else if (widget.dep == Department.ice) {
+        deps = "ice";
+      } else if (widget.dep == Department.civil) {
+        deps = "civil";
+      }
+    });
+    CollectionReference eventlist1 = FirebaseFirestore.instance
         .collection('cse')
         .doc("events")
         .collection("day1");
+    CollectionReference eventlist2 = FirebaseFirestore.instance
+        .collection('cse')
+        .doc("events")
+        .collection("day2");
+    CollectionReference eventlist3 = FirebaseFirestore.instance
+        .collection('cse')
+        .doc("events")
+        .collection("day3");
 
     Future<List<dynamic>> getData() async {
-      QuerySnapshot querySnapshot = await eventlist.get();
+      QuerySnapshot querySnapshot1 =
+          await eventlist1.where('dept', isEqualTo: "$deps").get();
+      QuerySnapshot querySnapshot2 =
+          await eventlist2.where('dept', isEqualTo: "$deps").get();
+      QuerySnapshot querySnapshot3 =
+          await eventlist3.where('dept', isEqualTo: "$deps").get();
 
-      List<dynamic> allData = querySnapshot.docs
+      List<dynamic> allData = querySnapshot1.docs
           .map((doc) => EventList(
                 eventname: doc.get("eventname"),
                 url: doc.get("url"),
                 ticket: doc.get("ticket"),
               ))
           .toList();
+      List<dynamic> dataday2 = querySnapshot2.docs
+          .map((doc) => EventList(
+                eventname: doc.get("eventname"),
+                url: doc.get("url"),
+                ticket: doc.get("ticket"),
+              ))
+          .toList();
+      List<dynamic> dataday3 = querySnapshot3.docs
+          .map((doc) => EventList(
+                eventname: doc.get("eventname"),
+                url: doc.get("url"),
+                ticket: doc.get("ticket"),
+              ))
+          .toList();
+
       setState(() {
+        allData.addAll(dataday2);
+        allData.addAll(dataday3);
         maxindex = allData.length;
         data = allData;
       });
