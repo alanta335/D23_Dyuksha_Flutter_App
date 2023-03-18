@@ -1,6 +1,5 @@
 import 'package:d23_dyuksha/screens/day_wise_event_screen/day_wise_event_screen.dart';
 import 'package:d23_dyuksha/screens/home_screen/home_screen.dart';
-import 'package:d23_dyuksha/widgets/FadeIndexedStack.dart';
 import 'package:d23_dyuksha/screens/about_screen/about_screen.dart';
 import 'package:d23_dyuksha/screens/talk_with_rj_screen/talk_with_rj_screen.dart';
 import 'package:d23_dyuksha/widgets/customScrollPhysics.dart';
@@ -24,9 +23,9 @@ class _WelcomePageState extends State<WelcomePage> {
   int _currentIndex = 0;
   final pageList = <Widget>[
     HomeScreen(),
-    TalkWithRJScreen(),
-    DayWiseEventScreen(),
-    AboutScreen(),
+    const TalkWithRJScreen(),
+    const DayWiseEventScreen(),
+    const AboutScreen(),
   ];
   @override
   Widget build(BuildContext context) {

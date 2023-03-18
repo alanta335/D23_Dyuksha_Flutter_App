@@ -20,8 +20,9 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   Future<void> _bookShow(BuildContext context) async {
-    final result =
-        await launchUrl(Uri.parse("https://www.dyuksha.org/proshows"));
+    final result = await launchUrl(
+        mode: LaunchMode.externalApplication,
+        Uri.parse("https://www.dyuksha.org/proshows"));
     if (!result) {
       if (!context.mounted) {
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
@@ -66,8 +67,9 @@ class _HomeScreenState extends State<HomeScreen> {
       child: SingleChildScrollView(
         child:
             Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
+          //SizedBox(height)
           Padding(
-            padding: const EdgeInsets.fromLTRB(0, 5, 0, 10),
+            padding: const EdgeInsets.fromLTRB(0, 20, 0, 10),
             child: SizedBox(
               height: 320,
               child: (loaded)
@@ -140,7 +142,10 @@ class _HomeScreenState extends State<HomeScreen> {
           CyberpunkButton(
             color: Colors.red,
             label: 'BOOK NOW',
-            onTap: () {},
+            onTap: () {
+              launchUrl(Uri.parse("https://www.yepdesk.com/profile/dyuksha"),
+                  mode: LaunchMode.externalApplication);
+            },
           ),
           Padding(
             padding: const EdgeInsets.fromLTRB(0, 5, 0, 10),

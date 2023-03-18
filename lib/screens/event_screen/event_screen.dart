@@ -20,7 +20,9 @@ class EventScreen extends StatelessWidget {
   Future<void> _onRegisterButtonTapped(BuildContext context) async {
     bool result = false;
     try {
-      result = await launchUrl(Uri.parse(event.registrationURL));
+      result = await launchUrl(
+          mode: LaunchMode.externalApplication,
+          Uri.parse(event.registrationURL));
     } on PlatformException catch (e) {
       print(e.toString()); //Log
       MotionToast.error(
