@@ -1,9 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:d23_dyuksha/models/event.dart';
+import 'package:d23_dyuksha/services/firestore_wrapper.dart';
+import 'package:d23_dyuksha/widgets/list_item_builder.dart';
 import 'package:flutter/material.dart';
 
 import '../../widgets/cypberpunk_background_scaffold.dart';
-import '../../widgets/listViewFromSnapshot.dart';
-import '/data/dummy_events.dart';
 import '/widgets/dyuksha_logo_mini.dart';
 import 'cyberpunk_tab_holder.dart';
 import 'event_tile.dart';
@@ -23,11 +24,15 @@ class _DayWiseEventScreenState extends State<DayWiseEventScreen>
   void initState() {
     super.initState();
     _tabController = TabController(length: 3, vsync: this);
+    _tabController.addListener(() {
+      setState(() {});
+    });
   }
 
   @override
   void dispose() {
     _tabController.dispose();
+
     super.dispose();
   }
 
@@ -42,64 +47,49 @@ class _DayWiseEventScreenState extends State<DayWiseEventScreen>
   Widget build(BuildContext context) {
     return CyberpunkBackgroundScaffold(
       child: SafeArea(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            DyukshaLogoMini(),
-            Padding(
-              padding: const EdgeInsets.fromLTRB(25, 0, 20, 15),
-              child: CyberpunkTabBarHolder(tabController: _tabController),
-            ),
-            Expanded(
-              child: TabBarView(controller: _tabController, children: [
-                // ListViewBuilder(),
-                // ListViewBuilder(),
-                // ListViewBuilder(),
-                ListViewFromSnapshot(
-                  key: ValueKey<int>(0),
-                  users: getData(0),
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 22.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              const SizedBox(height: 12.0),
+              DyukshaLogoMini(),
+              const SizedBox(height: 20),
+              CyberpunkTabBarHolder(tabController: _tabController),
+              const SizedBox(height: 20),
+              Expanded(
+                child: TabBarView(
+                  controller: _tabController,
+                  children: const [
+                    ListViewBuilder(day: 1),
+                    ListViewBuilder(day: 2),
+                    ListViewBuilder(day: 3),
+                  ],
                 ),
-                ListViewFromSnapshot(
-                  key: ValueKey<int>(1),
-                  users: getData(1),
-                ),
-                ListViewFromSnapshot(
-                  key: ValueKey<int>(2),
-                  users: getData(2),
-                ),
-              ]
-                  //[
-
-                  //   ListViewFromSnapshot(
-                  //     key: ValueKey<int>(1),
-                  //     users: getData(1),
-                  //   ),
-                  //   ListViewFromSnapshot(
-                  //     key: ValueKey<int>(2),
-                  //     users: getData(2),
-                  //   ),
-                  // ]
-                  ),
-            ),
-          ],
+              ),
+            ],
+          ),
         ),
       ),
     );
   }
 }
 
-// class ListViewBuilder extends StatelessWidget {
-//   const ListViewBuilder({
-//     super.key,
-//   });
+class ListViewBuilder extends StatelessWidget {
+  final int day;
+  const ListViewBuilder({
+    required this.day,
+    super.key,
+  });
 
-//   @override
-//   Widget build(BuildContext context) {
-//     return ListView.builder(
-//       itemCount: events.length,
-//       itemBuilder: (context, index) {
-//         return EventTile(event: events[index]);
-//       },
-//     );
-//   }
-// }
+  @override
+  Widget build(BuildContext context) {
+    return StreamBuilder<List<Event>>(
+      stream: DyukshaFirestore.getEventStreamByDay(day),
+      builder: (context, snapshot) => ListItemBuilder(
+        snapshot: snapshot,
+        itemBuilder: (_, event) => EventTile(event: event),
+      ),
+    );
+  }
+}

@@ -1,70 +1,81 @@
 import 'package:flutter/material.dart';
-
 import '/models/event.dart';
 import '../constants.dart';
 
 List<Event> events = [
   Event(
+    contact: "345678978745",
+    coordintorName: "Dharmajan Bolgatty",
     department: Department.cse,
-    timeOfDay: TimeOfDay.now().toString(),
+    time: "09:00 PM",
     name: 'PRAGATHI',
     day: 1,
-    eventCategory: "proshow",
+    category: EventCategory.proshow,
     imageURL: 'assets/images/proshow1.png',
     registrationURL: proshowPragathiURL,
     about:
         "Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unkno",
   ),
   Event(
+    contact: "345678978745",
+    coordintorName: "Dharmajan Bolgatty",
     department: Department.cse,
-    timeOfDay: TimeOfDay.now().toString(),
-    name: 'DJ',
-    day: 2,
-    eventCategory: "Proshow",
+    time: "09:00 PM",
+    name: 'PRAGATHI',
+    day: 1,
+    category: EventCategory.proshow,
     imageURL: 'assets/images/proshow1.png',
     registrationURL: proshowPragathiURL,
     about:
         "Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unkno",
   ),
   Event(
+    contact: "345678978745",
+    coordintorName: "Dharmajan Bolgatty",
     department: Department.cse,
-    timeOfDay: TimeOfDay.now().toString(),
-    name: 'PRAGATHI',
-    day: 3,
-    eventCategory: "Proshow",
-    imageURL: 'assets/images/pro3.jpg',
-    registrationURL: proshowPragathiURL,
-    about:
-        "Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unkno",
-  ),
-  Event(
-    department: Department.cse,
-    timeOfDay: TimeOfDay.now().toString(),
+    time: "09:00 PM",
     name: 'PRAGATHI',
     day: 1,
-    eventCategory: "EventCategory.proshow",
+    category: EventCategory.proshow,
     imageURL: 'assets/images/proshow1.png',
     registrationURL: proshowPragathiURL,
     about:
         "Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unkno",
   ),
   Event(
+    contact: "345678978745",
+    coordintorName: "Dharmajan Bolgatty",
     department: Department.cse,
-    timeOfDay: TimeOfDay.now().toString(),
+    time: "09:00 PM",
     name: 'PRAGATHI',
     day: 1,
-    eventCategory: "EventCategory.proshow",
+    category: EventCategory.proshow,
     imageURL: 'assets/images/proshow1.png',
     registrationURL: proshowPragathiURL,
     about:
         "Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unkno",
   ),
   Event(
+    contact: "345678978745",
+    coordintorName: "Dharmajan Bolgatty",
     department: Department.cse,
-    timeOfDay: TimeOfDay.now().toString(),
+    time: "09:00 PM",
     name: 'PRAGATHI',
     day: 1,
-    eventCategory: "EventCategory.proshow",
+    category: EventCategory.proshow,
+    imageURL: 'assets/images/proshow1.png',
+    registrationURL: proshowPragathiURL,
+    about:
+        "Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unkno",
+  ),
+  Event(
+    contact: "345678978745",
+    coordintorName: "Dharmajan Bolgatty",
+    department: Department.cse,
+    time: "09:00 PM",
+    name: 'PRAGATHI',
+    day: 1,
+    category: EventCategory.proshow,
     imageURL: 'assets/images/proshow1.png',
     registrationURL: proshowPragathiURL,
     about:

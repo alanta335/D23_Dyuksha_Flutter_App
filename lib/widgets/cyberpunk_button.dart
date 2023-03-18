@@ -5,10 +5,12 @@ class CyberpunkButton extends StatefulWidget {
   final Color color;
   final VoidCallback onTap;
   final String label;
+  final bool isPressed;
   const CyberpunkButton({
     required this.color,
     required this.label,
     required this.onTap,
+    this.isPressed = false,
     super.key,
   });
 
@@ -34,15 +36,39 @@ class _CyberpunkButtonState extends State<CyberpunkButton> {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-          onTap: _onTap,
-          child: Stack(
-            alignment: Alignment.center,
-            children: [
-              const SizedBox(height: 70.0, width: 140.0),
-              ClipPath(
+      onTap: _onTap,
+      child: Stack(
+        alignment: Alignment.center,
+        children: [
+          const SizedBox(height: 70.0, width: 140.0),
+          ClipPath(
+            clipper: ButtonClipper(),
+            child: Container(
+              color: widget.color,
+              padding: const EdgeInsets.symmetric(
+                vertical: 20.0,
+                horizontal: 26.0,
+              ),
+              child: Text(
+                widget.label,
+                style: GoogleFonts.chakraPetch(
+                  fontWeight: FontWeight.w600,
+                  fontSize: 16.0,
+                  color: Colors.black,
+                ),
+              ),
+            ),
+          ),
+          if (!_isPressed && widget.isPressed)
+            Padding(
+              padding: const EdgeInsets.only(
+                bottom: 8.0,
+                right: 8.0,
+              ),
+              child: ClipPath(
                 clipper: ButtonClipper(),
                 child: Container(
-                  color: widget.color,
+                  color: Colors.black,
                   padding: const EdgeInsets.symmetric(
                     vertical: 20.0,
                     horizontal: 26.0,
@@ -52,39 +78,15 @@ class _CyberpunkButtonState extends State<CyberpunkButton> {
                     style: GoogleFonts.chakraPetch(
                       fontWeight: FontWeight.w600,
                       fontSize: 16.0,
-                      color: Colors.black,
+                      color: widget.color,
                     ),
                   ),
                 ),
               ),
-              if (!_isPressed)
-                Padding(
-                  padding: const EdgeInsets.only(
-                    bottom: 8.0,
-                    right: 8.0,
-                  ),
-                  child: ClipPath(
-                    clipper: ButtonClipper(),
-                    child: Container(
-                      color: Colors.black,
-                      padding: const EdgeInsets.symmetric(
-                        vertical: 20.0,
-                        horizontal: 26.0,
-                      ),
-                      child: Text(
-                        widget.label,
-                        style: GoogleFonts.chakraPetch(
-                          fontWeight: FontWeight.w600,
-                          fontSize: 16.0,
-                          color: widget.color,
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
-            ],
-          ),
-        );
+            ),
+        ],
+      ),
+    );
   }
 }
 
@@ -109,4 +111,3 @@ class ButtonClipper extends CustomClipper<Path> {
     return false;
   }
 }
-

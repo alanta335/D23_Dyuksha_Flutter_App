@@ -1,93 +1,129 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:d23_dyuksha/models/event.dart';
+import 'package:d23_dyuksha/screens/about_screen/about_screen.dart';
+import 'package:d23_dyuksha/screens/event_screen/event_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+import '../../models/event.dart';
 import '../../widgets/dyuksha_logo_mini.dart';
 import 'clippers.dart';
-import 'dark_button.dart';
 
-int index = 0;
-int maxindex = 0;
-var data;
-
-class ImageHolder extends StatelessWidget {
+class ImageHolder extends StatefulWidget {
+  final Department department;
+  final List<Event> departmentEvents;
+  final void Function(int) onIndexChanged;
   const ImageHolder({
+    required this.department,
+    required this.departmentEvents,
+    required this.onIndexChanged,
     super.key,
-    required this.dep,
   });
-  final Department dep;
+
+  @override
+  State<ImageHolder> createState() => _ImageHolderState();
+}
+
+class _ImageHolderState extends State<ImageHolder> {
+  int currentIndex = 0;
+
+  void _onForwardTap() {
+    setState(() {
+      currentIndex = (currentIndex + 1) % widget.departmentEvents.length;
+    });
+    widget.onIndexChanged(currentIndex);
+  }
+
+  void _onBackwardTap() {
+    setState(() {
+      currentIndex = (currentIndex - 1) % widget.departmentEvents.length;
+    });
+    widget.onIndexChanged(currentIndex);
+  }
+
   @override
   Widget build(BuildContext context) {
     return LayoutBuilder(builder: (context, constraints) {
       return Column(
         children: [
-          ImageHolderTop(height: constraints.maxHeight * 0.11, dep: dep),
-          ImageHolderCenter(height: constraints.maxHeight, dep: dep),
+          ImageHolderTop(
+            height: constraints.maxHeight * 0.2,
+            department: Event.getDepartmentFromEnum(widget.department),
+          ),
+          ImageHolderCenter(
+            height: constraints.maxHeight * 0.6,
+            imageURL: widget.departmentEvents[currentIndex].imageURL,
+          ),
+          ImageHolderBottom(
+            height: constraints.maxHeight * 0.2,
+            onForwardTap: _onForwardTap,
+            onBackwardTap: _onBackwardTap,
+            event: widget.departmentEvents[currentIndex],
+          ),
         ],
       );
     });
   }
 }
 
-class ImageHolderBottom extends StatefulWidget {
+class ImageHolderBottom extends StatelessWidget {
   final double height;
+  final VoidCallback onForwardTap;
+  final VoidCallback onBackwardTap;
+  final Event event;
+
   const ImageHolderBottom({
     required this.height,
+    required this.onBackwardTap,
+    required this.onForwardTap,
+    required this.event,
     super.key,
   });
 
-  @override
-  State<ImageHolderBottom> createState() => _ImageHolderBottomState();
-}
-
-class _ImageHolderBottomState extends State<ImageHolderBottom> {
   @override
   Widget build(BuildContext context) {
     return ClipPath(
       clipper: ImageHolderBottomClipper(slope: 24.0, gap: 12.0),
       child: Container(
-        height: widget.height,
+        height: height,
         color: Colors.black.withOpacity(0.5),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
             IconButton(
-              onPressed: () {
-                setState(() {
-                  index = index - 1;
-                });
-              },
+              onPressed: onBackwardTap,
               icon: const Icon(
                 Icons.fast_rewind_rounded,
                 color: Colors.white,
-                size: 24.0,
-              ),
-            ),
-            Container(
-              padding: const EdgeInsets.all(16.0),
-              margin: const EdgeInsets.only(top: 12.0),
-              decoration: BoxDecoration(
-                color: Colors.cyan,
-                borderRadius: BorderRadius.circular(12.0),
-              ),
-              child: const Icon(
-                Icons.info_outline_rounded,
-                color: Colors.black,
                 size: 32.0,
               ),
             ),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Container(
+                padding: const EdgeInsets.all(10.0),
+                margin: const EdgeInsets.only(top: 12.0),
+                decoration: BoxDecoration(
+                  color: event.getColorOfDay(),
+                  borderRadius: BorderRadius.circular(12.0),
+                ),
+                child: IconButton(
+                  onPressed: () => Navigator.of(context).push(MaterialPageRoute(
+                      builder: (_) => EventScreen(event: event))),
+                  icon: const Icon(
+                    Icons.info_outline_rounded,
+                    color: Colors.black,
+                    size: 32.0,
+                  ),
+                ),
+              ),
+            ),
             IconButton(
-              onPressed: () {
-                setState(() {
-                  index = index + 1;
-                });
-              },
+              onPressed: onForwardTap,
               icon: const Icon(
                 Icons.fast_forward_rounded,
                 color: Colors.white,
-                size: 24.0,
+                size: 32.0,
               ),
             ),
           ],
@@ -97,320 +133,77 @@ class _ImageHolderBottomState extends State<ImageHolderBottom> {
   }
 }
 
-class ImageHolderCenter extends StatefulWidget {
+class ImageHolderCenter extends StatelessWidget {
   final double height;
-  final Department dep;
-
+  final String imageURL;
   const ImageHolderCenter({
     required this.height,
+    required this.imageURL,
     super.key,
-    required this.dep,
   });
 
   @override
-  State<ImageHolderCenter> createState() => _ImageHolderCenterState();
-}
-
-class EventList {
-  String? cntname;
-  String? ticket;
-  String? contact;
-  String? description;
-  String? time;
-  String? type;
-  String? url;
-  String? eventname;
-
-  EventList(
-      {this.cntname,
-      this.ticket,
-      this.contact,
-      this.description,
-      this.time,
-      this.type,
-      this.url,
-      this.eventname});
-  EventList.fromJson(Map<String, dynamic> json) {
-    cntname = json['cntname'];
-    ticket = json['ticket'];
-    contact = json['contact'];
-    description = json['description'];
-    time = json['time'];
-    type = json['type'];
-    url = json['url'];
-    eventname = json['eventname'];
-  }
-
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = Map<String, dynamic>();
-    data['cntname'] = cntname;
-    data['ticket'] = ticket;
-    data['contact'] = contact;
-    data['description'] = description;
-    data['time'] = time;
-    data['type'] = type;
-    data['url'] = url;
-    data['eventname'] = eventname;
-    return data;
-  }
-}
-
-class _ImageHolderCenterState extends State<ImageHolderCenter> {
-  @override
   Widget build(BuildContext context) {
-    String deps = "";
-    setState(() {
-      if (widget.dep == Department.cse) {
-        deps = "cse";
-      } else if (widget.dep == Department.mech) {
-        deps = "mech";
-      } else if (widget.dep == Department.eee) {
-        deps = "eee";
-      } else if (widget.dep == Department.ec) {
-        deps = "ece";
-      } else if (widget.dep == Department.ice) {
-        deps = "ice";
-      } else if (widget.dep == Department.civil) {
-        deps = "civil";
-      }
-    });
-    CollectionReference eventlist1 = FirebaseFirestore.instance
-        .collection('cse')
-        .doc("events")
-        .collection("day1");
-    CollectionReference eventlist2 = FirebaseFirestore.instance
-        .collection('cse')
-        .doc("events")
-        .collection("day2");
-    CollectionReference eventlist3 = FirebaseFirestore.instance
-        .collection('cse')
-        .doc("events")
-        .collection("day3");
-
-    Future<List<dynamic>> getData() async {
-      QuerySnapshot querySnapshot1 =
-          await eventlist1.where('dept', isEqualTo: "$deps").get();
-      QuerySnapshot querySnapshot2 =
-          await eventlist2.where('dept', isEqualTo: "$deps").get();
-      QuerySnapshot querySnapshot3 =
-          await eventlist3.where('dept', isEqualTo: "$deps").get();
-
-      List<dynamic> allData = querySnapshot1.docs
-          .map((doc) => EventList(
-                eventname: doc.get("eventname"),
-                url: doc.get("url"),
-                ticket: doc.get("ticket"),
-              ))
-          .toList();
-      List<dynamic> dataday2 = querySnapshot2.docs
-          .map((doc) => EventList(
-                eventname: doc.get("eventname"),
-                url: doc.get("url"),
-                ticket: doc.get("ticket"),
-              ))
-          .toList();
-      List<dynamic> dataday3 = querySnapshot3.docs
-          .map((doc) => EventList(
-                eventname: doc.get("eventname"),
-                url: doc.get("url"),
-                ticket: doc.get("ticket"),
-              ))
-          .toList();
-
-      setState(() {
-        allData.addAll(dataday2);
-        allData.addAll(dataday3);
-        maxindex = allData.length;
-        data = allData;
-      });
-      return allData;
-    }
-
-    getData();
-    return Column(
-      children: [
-        ClipPath(
-          clipper: ImageHolderCenterClipper(gap: 12.0),
-          child: Container(
-            height: widget.height * 0.65,
-            width: double.infinity,
-            color: Colors.black.withOpacity(0.5),
-            child: SizedBox(
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  SizedBox(
-                    height: widget.height * 0.55,
-                    width: widget.height * 0.55,
-                    child: FutureBuilder(
-                      future: getData(),
-                      builder: (BuildContext context,
-                          AsyncSnapshot<dynamic> snapshot) {
-                        if (snapshot.hasData) {
-                          return Image.network(
-                            snapshot.data[index].url,
-                            fit: BoxFit.cover,
-                          );
-                        } else if (snapshot.hasError) {
-                          return const Text("Error");
-                        } else {
-                          return const CircularProgressIndicator();
-                        }
-                      },
-                    ),
-                  ),
-                ],
+    return ClipPath(
+      clipper: ImageHolderCenterClipper(gap: 12.0),
+      child: Container(
+        height: height,
+        width: double.infinity,
+        color: Colors.black.withOpacity(0.5),
+        child: SizedBox(
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              SizedBox(
+                height: height,
+                width: height,
+                child: Image.network(imageURL,
+                    fit: BoxFit.cover,
+                    errorBuilder: (_, __, ___) => Image.asset(
+                          'assets/images/placeholder_dyuksha.jpg',
+                          fit: BoxFit.cover,
+                        ),
+                    loadingBuilder: (_, child, loadingProgress) {
+                      if (loadingProgress == null) {
+                        return child;
+                      }
+                      double progress = loadingProgress.cumulativeBytesLoaded /
+                          loadingProgress.expectedTotalBytes!.toDouble();
+                      return Container(
+                        color: Colors.white.withOpacity(0.2),
+                        child: Transform.scale(
+                          scale: progress,
+                          child: Container(
+                            color: Colors.white.withOpacity(0.8),
+                          ),
+                        ),
+                      );
+                    }),
               ),
-            ),
+            ],
           ),
         ),
-        ClipPath(
-          clipper: ImageHolderBottomClipper(slope: 24.0, gap: 12.0),
-          child: Container(
-            height: widget.height * 0.11,
-            color: Colors.black.withOpacity(0.5),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                IconButton(
-                  onPressed: () {
-                    setState(() {
-                      if (index != 0) {
-                        index = index - 1;
-                      } else {
-                        index = maxindex - 1;
-                      }
-                    });
-                  },
-                  icon: const Icon(
-                    Icons.fast_rewind_rounded,
-                    color: Colors.white,
-                    size: 24.0,
-                  ),
-                ),
-                Container(
-                  padding: const EdgeInsets.all(16.0),
-                  decoration: BoxDecoration(
-                    color: Colors.cyan,
-                    borderRadius: BorderRadius.circular(12.0),
-                  ),
-                  child: IconButton(
-                    icon: const Icon(
-                      Icons.info_outline_rounded,
-                      color: Colors.black,
-                      size: 32.0,
-                    ),
-                    onPressed: () async {
-                      Uri url = Uri.parse(data[index].ticket);
-                      await launchUrl(url,
-                          mode: LaunchMode.externalApplication);
-                    },
-                  ),
-                ),
-                IconButton(
-                  onPressed: () {
-                    setState(() {
-                      if (index < maxindex - 1) {
-                        index = index + 1;
-                      } else {
-                        index = 0;
-                      }
-                    });
-                  },
-                  icon: const Icon(
-                    Icons.fast_forward_rounded,
-                    color: Colors.white,
-                    size: 24.0,
-                  ),
-                ),
-              ],
-            ),
-          ),
-        ),
-        SizedBox(
-          width: 24.0,
-          height: 24.0,
-        ),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            const DarkButton(
-              iconData: Icons.file_download_outlined,
-            ),
-            GestureDetector(
-              onTap: () async {
-                Uri url = Uri.parse(data[index].ticket);
-                await launchUrl(url, mode: LaunchMode.externalApplication);
-              },
-              child: Container(
-                padding: const EdgeInsets.symmetric(
-                  vertical: 16.0,
-                  horizontal: 28.0,
-                ),
-                decoration: BoxDecoration(
-                  color: Colors.transparent,
-                  border: Border.all(
-                    width: 1,
-                    color: Colors.white.withOpacity(0.2),
-                  ),
-                ),
-                child: Text(
-                  'REGISTER',
-                  style: GoogleFonts.chakraPetch(
-                    fontSize: 14,
-                    fontWeight: FontWeight.w600,
-                    color: Colors.white,
-                  ),
-                ),
-              ),
-            ),
-            const DarkButton(
-              iconData: Icons.share,
-            ),
-          ],
-        )
-      ],
+      ),
     );
   }
 }
 
-class ImageHolderTop extends StatefulWidget {
+class ImageHolderTop extends StatelessWidget {
   final double height;
-  final Department dep;
+  final String department;
+
   const ImageHolderTop({
     required this.height,
     super.key,
-    required this.dep,
+    required this.department,
   });
 
   @override
-  State<ImageHolderTop> createState() => _ImageHolderTopState();
-}
-
-class _ImageHolderTopState extends State<ImageHolderTop> {
-  @override
   Widget build(BuildContext context) {
-    String deps = "";
-    setState(() {
-      if (widget.dep == Department.cse) {
-        deps = "CSE";
-      } else if (widget.dep == Department.mech) {
-        deps = "MECH";
-      } else if (widget.dep == Department.eee) {
-        deps = "EEE";
-      } else if (widget.dep == Department.ec) {
-        deps = "ECE";
-      } else if (widget.dep == Department.ice) {
-        deps = "ICE";
-      } else if (widget.dep == Department.civil) {
-        deps = "CIVIL";
-      }
-    });
     return ClipPath(
       clipper: ImageHolderTopClipper(slope: 24.0, gap: 12.0),
       child: Container(
-        height: widget.height,
+        height: height,
         color: Colors.black.withOpacity(0.5),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -418,9 +211,7 @@ class _ImageHolderTopState extends State<ImageHolderTop> {
             Padding(
               padding: const EdgeInsets.only(left: 12.0),
               child: IconButton(
-                onPressed: () {
-                  Navigator.pop(context);
-                },
+                onPressed: () => Navigator.of(context).pop(),
                 icon: const Icon(
                   Icons.arrow_back_ios_new_rounded,
                   color: Colors.white,
@@ -431,7 +222,7 @@ class _ImageHolderTopState extends State<ImageHolderTop> {
             Padding(
               padding: const EdgeInsets.only(top: 16.0),
               child: Text(
-                deps.toString(),
+                department.toUpperCase(),
                 style: GoogleFonts.chakraPetch(
                   color: Colors.white,
                   fontSize: 32.0,
@@ -440,7 +231,7 @@ class _ImageHolderTopState extends State<ImageHolderTop> {
               ),
             ),
             const Padding(
-              padding: EdgeInsets.only(right: 32.0),
+              padding: EdgeInsets.only(right: 12.0, top: 10),
               child: DyukshaLogoMini(),
             ),
           ],

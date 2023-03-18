@@ -41,7 +41,7 @@ class EventScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return CyberpunkBackgroundScaffold(
         child: Padding(
-      padding: const EdgeInsets.only(top: 18.0, left: 30.0, right: 30.0),
+      padding: const EdgeInsets.only(top: 18.0, left: 40.0, right: 40.0),
       child: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -52,7 +52,7 @@ class EventScreen extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  event.eventCategory,
+                  event.getCategoryValue(),
                   style: GoogleFonts.chakraPetch(
                     color: Colors.white,
                     fontSize: 18.0,
@@ -70,14 +70,33 @@ class EventScreen extends StatelessWidget {
                 ),
                 const SizedBox(height: 16.0),
                 SizedBox(
-                  height: MediaQuery.of(context).size.width - 60.0,
-                  width: MediaQuery.of(context).size.width - 60.0,
+                  height: MediaQuery.of(context).size.width - 80.0,
+                  width: MediaQuery.of(context).size.width - 80.0,
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(18.0),
-                    child: Image.asset(
-                      event.imageURL,
-                      fit: BoxFit.fill,
-                    ),
+                    child: Image.network(event.imageURL,
+                        fit: BoxFit.cover,
+                        errorBuilder: (_, __, ___) => Image.asset(
+                              "assets/images/placeholder_dyuksha.jpg",
+                              fit: BoxFit.cover,
+                            ),
+                        loadingBuilder: (_, child, loadingProgress) {
+                          if (loadingProgress == null) {
+                            return child;
+                          }
+                          double progress = loadingProgress
+                                  .cumulativeBytesLoaded /
+                              loadingProgress.expectedTotalBytes!.toDouble();
+                          return Container(
+                            color: Colors.white.withOpacity(0.2),
+                            child: Transform.scale(
+                              scale: progress,
+                              child: Container(
+                                color: Colors.white.withOpacity(0.8),
+                              ),
+                            ),
+                          );
+                        }),
                   ),
                 ),
               ],

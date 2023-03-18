@@ -15,25 +15,31 @@ class CyberpunkBackgroundScaffold extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      child: Container(
-        decoration: const BoxDecoration(
-          image: DecorationImage(
-            image: AssetImage('assets/images/cyber_city.jpg'),
-            fit: BoxFit.cover,
+    return NotificationListener<OverscrollIndicatorNotification>(
+      onNotification: (OverscrollIndicatorNotification overscroll) {
+        overscroll.disallowIndicator();
+        return false;
+      },
+      child: SingleChildScrollView(
+        child: Container(
+          decoration: const BoxDecoration(
+            image: DecorationImage(
+              image: AssetImage('assets/images/cyber_city.jpg'),
+              fit: BoxFit.cover,
+            ),
           ),
-        ),
-        child: SizedBox(
-          height: MediaQuery.of(context).size.height,
-          width: MediaQuery.of(context).size.width,
-          child: BackdropFilter(
-            filter: ImageFilter.blur(sigmaX: 5, sigmaY: 5),
-            child: Scaffold(
-              appBar: appBar,
-              backgroundColor: const Color(0x66010101),
-              //backgroundColor: Colors.red,
-              body: child,
-              bottomNavigationBar: bottomNavigationBar,
+          child: SizedBox(
+            height: MediaQuery.of(context).size.height,
+            width: MediaQuery.of(context).size.width,
+            child: BackdropFilter(
+              filter: ImageFilter.blur(sigmaX: 5, sigmaY: 5),
+              child: Scaffold(
+                appBar: appBar,
+                backgroundColor: const Color(0x66010101),
+                //backgroundColor: Colors.red,
+                body: child,
+                bottomNavigationBar: bottomNavigationBar,
+              ),
             ),
           ),
         ),

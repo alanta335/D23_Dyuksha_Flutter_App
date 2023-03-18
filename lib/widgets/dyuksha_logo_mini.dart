@@ -9,14 +9,23 @@ class DyukshaLogoMini extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.fromLTRB(0, 0, 20, 10),
-      child: SizedBox(
-          height: 30,
-          width: 30,
-          child: Image.asset(
-            'assets/images/d23_logo_mini.png',
-            color: Colors.white,
-            alignment: Alignment.centerRight,
-          )),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.end,
+        children: [
+          SizedBox(
+            height: 30,
+            width: 30,
+            child: Image.asset(
+              'assets/images/d23_logo_mini.png',
+              height: 30,
+              width: 30,
+              isAntiAlias: true,
+              alignment: Alignment.centerRight,
+              fit: BoxFit.cover,
+            ),
+          ),
+        ],
+      ),
     );
   }
 }

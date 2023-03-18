@@ -45,6 +45,22 @@ class AboutBox extends StatelessWidget {
                 fontWeight: FontWeight.w300,
               ),
             ),
+            const SizedBox(height: 24.0),
+            Text(
+              "COORDINATOR: " + event.coordintorName.toUpperCase(),
+              style: GoogleFonts.chakraPetch(
+                fontSize: 11,
+                fontWeight: FontWeight.w600,
+              ),
+            ),
+            const SizedBox(height: 4.0),
+            Text(
+              "CONTACT: " + event.contact.toUpperCase(),
+              style: GoogleFonts.chakraPetch(
+                fontSize: 11,
+                fontWeight: FontWeight.w500,
+              ),
+            ),
           ],
         ),
       ),
