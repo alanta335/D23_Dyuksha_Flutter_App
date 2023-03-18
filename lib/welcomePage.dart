@@ -22,7 +22,7 @@ class _WelcomePageState extends State<WelcomePage> {
   }
 
   int _currentIndex = 0;
-  final pageList = const <Widget>[
+  final pageList = <Widget>[
     HomeScreen(),
     TalkWithRJScreen(),
     DayWiseEventScreen(),

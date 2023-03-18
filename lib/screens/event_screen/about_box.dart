@@ -29,7 +29,7 @@ class AboutBox extends StatelessWidget {
                 border: Border(bottom: BorderSide(width: 2)),
               ),
               child: Text(
-                'ABOUT',
+                (event.about == "") ? "CONTACT" : "ABOUT",
                 textAlign: TextAlign.start,
                 style: GoogleFonts.chakraPetch(
                   fontSize: 16,
@@ -37,14 +37,15 @@ class AboutBox extends StatelessWidget {
                 ),
               ),
             ),
-            const SizedBox(height: 12.0),
-            Text(
-              event.about.toUpperCase(),
-              style: GoogleFonts.chakraPetch(
-                fontSize: 11,
-                fontWeight: FontWeight.w300,
+            if (!(event.about == "")) const SizedBox(height: 12.0),
+            if (!(event.about == ""))
+              Text(
+                event.about.toUpperCase(),
+                style: GoogleFonts.chakraPetch(
+                  fontSize: 11,
+                  fontWeight: FontWeight.w300,
+                ),
               ),
-            ),
             const SizedBox(height: 24.0),
             Text(
               "COORDINATOR: " + event.coordintorName.toUpperCase(),
