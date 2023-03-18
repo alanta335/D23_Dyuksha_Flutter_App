@@ -20,10 +20,10 @@ class DepartmentEventScreen extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              SafeArea(child: SizedBox()),
-              Container(height: 700, child: ImageHolder(dep: dep)),
-              SizedBox(
-                height: 20,
+              const SafeArea(child: SizedBox()),
+              SizedBox(height: 700, child: ImageHolder(dep: dep)),
+              const SizedBox(
+                height: 30,
               )
             ],
           ),
