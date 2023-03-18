@@ -1,3 +1,5 @@
+import 'package:d23_dyuksha/screens/event_screen/about_box.dart';
+
 import '../../widgets/cyberpunk_button.dart';
 import '../../widgets/cypberpunk_background_scaffold.dart';
 import '/widgets/dyuksha_logo_mini.dart';
@@ -116,12 +118,23 @@ class _TalkWithRJScreenState extends State<TalkWithRJScreen>
                 child: CyberpunkButton(
                   color: Colors.yellow,
                   label: 'Send',
-                  onTap: _timerFree ? _send : () {},
+                  onTap: (_timerFree) ? _send : () {},
+                  isPressed: _timerFree,
                 ),
               ),
               SizedBox(
-                height: 70,
-              )
+                height: 50,
+              ),
+              Center(
+                child: Text(
+                  'You can send a message or question to RJ once every 30 seconds',
+                  style: GoogleFonts.chakraPetch(
+                    color: Colors.yellow,
+                    fontSize: 14,
+                    fontWeight: FontWeight.w100,
+                  ),
+                ),
+              ),
             ],
           ),
         ),

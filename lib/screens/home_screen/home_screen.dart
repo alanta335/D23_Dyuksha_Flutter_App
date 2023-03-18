@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:carousel_slider/carousel_slider.dart';
@@ -5,14 +6,19 @@ import 'package:url_launcher/url_launcher.dart';
 
 import '../../models/event.dart';
 import '../../widgets/cypberpunk_background_scaffold.dart';
-import '../../data/data.dart';
+//import '../../data/data.dart';
 import '../../widgets/cyberpunk_button.dart';
 import '../department_event_screen/department_event_screen.dart';
 import '../event_screen/event_screen.dart';
 
-class HomeScreen extends StatelessWidget {
-  const HomeScreen({super.key});
+class HomeScreen extends StatefulWidget {
+  HomeScreen({super.key});
 
+  @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
   Future<void> _bookShow(BuildContext context) async {
     final result =
         await launchUrl(Uri.parse("https://www.dyuksha.org/proshows"));
@@ -25,8 +31,26 @@ class HomeScreen extends StatelessWidget {
     }
   }
 
+  late List<Event> events;
+
+  Future getData() async {
+    CollectionReference proshow =
+        FirebaseFirestore.instance.collection('events');
+    //.collection("day3");
+    QuerySnapshot q = await proshow.get();
+    events = q.docs
+        .map((doc) => Event.fromJson(doc.data() as Map<String, dynamic>, 1))
+        .toList();
+    setState(() {
+      loaded = true;
+    });
+  }
+
+  var loaded = false;
   @override
   Widget build(BuildContext context) {
+    getData();
+
     return CyberpunkBackgroundScaffold(
       appBar: AppBar(
         elevation: 0,
@@ -46,32 +70,71 @@ class HomeScreen extends StatelessWidget {
             padding: const EdgeInsets.fromLTRB(0, 5, 0, 10),
             child: SizedBox(
               height: 320,
-              child: CarouselSlider.builder(
-                itemCount: events.length,
-                options: CarouselOptions(
-                    height: MediaQuery.of(context).size.width * 0.75,
-                    enlargeCenterPage: true,
-                    enlargeFactor: 0.4,
-                    viewportFraction: 0.75),
-                itemBuilder: (context, index, realIndex) => GestureDetector(
-                  onTap: () {
-                    Navigator.of(context).push(MaterialPageRoute(
-                        builder: (_) => EventScreen(event: events[index])));
-                  },
-                  child: Container(
-                    width: MediaQuery.of(context).size.width * 0.8,
-                    margin: const EdgeInsets.symmetric(horizontal: 2.0),
-                    child: ClipRRect(
-                      borderRadius: BorderRadius.circular(16.0),
-                      child: Image.asset(
-                        events[index].imageURL,
-                        fit: BoxFit.cover,
-                        filterQuality: FilterQuality.low,
+              child: (loaded)
+                  ? CarouselSlider.builder(
+                      itemCount: events.length,
+                      options: CarouselOptions(
+                          height: MediaQuery.of(context).size.width * 0.75,
+                          enlargeCenterPage: true,
+                          enlargeFactor: 0.4,
+                          viewportFraction: 0.75),
+                      itemBuilder: (context, index, realIndex) =>
+                          GestureDetector(
+                        onTap: () {
+                          Navigator.of(context).push(MaterialPageRoute(
+                              builder: (_) =>
+                                  EventScreen(event: events[index])));
+                        },
+                        child: Container(
+                          width: MediaQuery.of(context).size.width * 0.8,
+                          margin: const EdgeInsets.symmetric(horizontal: 2.0),
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(16.0),
+                            child: Image.network(events[index].imageURL,
+                                fit: BoxFit.cover,
+                                filterQuality: FilterQuality.low,
+                                errorBuilder: (_, __, ___) {
+                              return Image.asset(
+                                'assets/images/placeholder_dyuksha.jpg',
+                                fit: BoxFit.cover,
+                              );
+                            }, loadingBuilder: (_, child, loadingProgress) {
+                              if (loadingProgress == null) {
+                                return child;
+                              }
+                              double progress =
+                                  loadingProgress.cumulativeBytesLoaded /
+                                      loadingProgress.expectedTotalBytes!
+                                          .toDouble();
+                              return Container(
+                                color: Colors.white.withOpacity(0.2),
+                                child: Transform.scale(
+                                  scale: progress,
+                                  child: Container(
+                                    color: Colors.white.withOpacity(0.8),
+                                  ),
+                                ),
+                              );
+                            }),
+                          ),
+                        ),
+                        // child: Container(
+                        //   width: MediaQuery.of(context).size.width * 0.8,
+                        //   margin: const EdgeInsets.symmetric(horizontal: 2.0),
+                        //   child: ClipRRect(
+                        //     borderRadius: BorderRadius.circular(16.0),
+                        //     child: Image.network(
+                        //       events[index].imageURL,
+                        //       fit: BoxFit.cover,
+                        //       filterQuality: FilterQuality.low,
+                        //     ),
+                        //   ),
+                        // ),
                       ),
+                    )
+                  : const Center(
+                      child: CircularProgressIndicator(),
                     ),
-                  ),
-                ),
-              ),
             ),
           ),
           CyberpunkButton(
