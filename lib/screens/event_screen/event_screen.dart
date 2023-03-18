@@ -42,54 +42,57 @@ class EventScreen extends StatelessWidget {
     return CyberpunkBackgroundScaffold(
         child: Padding(
       padding: const EdgeInsets.only(top: 18.0, left: 30.0, right: 30.0),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-          const SafeArea(child: DyukshaLogoMini()),
-          const SizedBox(height: 16.0),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                event.eventCategory,
-                style: GoogleFonts.chakraPetch(
-                  color: Colors.white,
-                  fontSize: 18.0,
-                  fontWeight: FontWeight.w600,
-                ),
-              ),
-              const SizedBox(height: 8.0),
-              Text(
-                event.name.toUpperCase(),
-                style: GoogleFonts.chakraPetch(
-                  color: event.getColorOfDay(),
-                  fontSize: 18.0,
-                  fontWeight: FontWeight.w600,
-                ),
-              ),
-              const SizedBox(height: 16.0),
-              SizedBox(
-                height: MediaQuery.of(context).size.width - 60.0,
-                width: MediaQuery.of(context).size.width - 60.0,
-                child: ClipRRect(
-                  borderRadius: BorderRadius.circular(18.0),
-                  child: Image.asset(
-                    event.imageURL,
-                    fit: BoxFit.fill,
+      child: SingleChildScrollView(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            const SafeArea(child: DyukshaLogoMini()),
+            const SizedBox(height: 16.0),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  event.eventCategory,
+                  style: GoogleFonts.chakraPetch(
+                    color: Colors.white,
+                    fontSize: 18.0,
+                    fontWeight: FontWeight.w600,
                   ),
                 ),
-              ),
-            ],
-          ),
-          const SizedBox(height: 20.0),
-          CyberpunkButton(
-            color: event.getColorOfDay(),
-            label: "REGISTER",
-            onTap: () => _onRegisterButtonTapped(context),
-          ),
-          const SizedBox(height: 20.0),
-          AboutBox(event: event),
-        ],
+                const SizedBox(height: 8.0),
+                Text(
+                  event.name.toUpperCase(),
+                  style: GoogleFonts.chakraPetch(
+                    color: event.getColorOfDay(),
+                    fontSize: 18.0,
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
+                const SizedBox(height: 16.0),
+                SizedBox(
+                  height: MediaQuery.of(context).size.width - 60.0,
+                  width: MediaQuery.of(context).size.width - 60.0,
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(18.0),
+                    child: Image.asset(
+                      event.imageURL,
+                      fit: BoxFit.fill,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+            const SizedBox(height: 20.0),
+            CyberpunkButton(
+              color: event.getColorOfDay(),
+              label: "REGISTER",
+              onTap: () => _onRegisterButtonTapped(context),
+            ),
+            const SizedBox(height: 20.0),
+            AboutBox(event: event),
+            const SizedBox(height: 50.0),
+          ],
+        ),
       ),
     ));
   }

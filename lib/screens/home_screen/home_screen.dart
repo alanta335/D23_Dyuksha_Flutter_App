@@ -29,29 +29,32 @@ class HomeScreen extends StatelessWidget {
       child: SingleChildScrollView(
         child:
             Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
-          SizedBox(
-            height: 320,
-            child: CarouselSlider.builder(
-              itemCount: events.length,
-              options: CarouselOptions(
-                  height: MediaQuery.of(context).size.width * 0.75,
-                  enlargeCenterPage: true,
-                  enlargeFactor: 0.4,
-                  viewportFraction: 0.75),
-              itemBuilder: (context, index, realIndex) => GestureDetector(
-                onTap: () {
-                  Navigator.of(context).push(MaterialPageRoute(
-                      builder: (_) => EventScreen(event: events[index])));
-                },
-                child: Container(
-                  width: MediaQuery.of(context).size.width * 0.8,
-                  margin: const EdgeInsets.symmetric(horizontal: 2.0),
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.circular(16.0),
-                    child: Image.asset(
-                      events[index].imageURL,
-                      fit: BoxFit.cover,
-                      filterQuality: FilterQuality.low,
+          Padding(
+            padding: const EdgeInsets.fromLTRB(0, 5, 0, 10),
+            child: SizedBox(
+              height: 320,
+              child: CarouselSlider.builder(
+                itemCount: events.length,
+                options: CarouselOptions(
+                    height: MediaQuery.of(context).size.width * 0.75,
+                    enlargeCenterPage: true,
+                    enlargeFactor: 0.4,
+                    viewportFraction: 0.75),
+                itemBuilder: (context, index, realIndex) => GestureDetector(
+                  onTap: () {
+                    Navigator.of(context).push(MaterialPageRoute(
+                        builder: (_) => EventScreen(event: events[index])));
+                  },
+                  child: Container(
+                    width: MediaQuery.of(context).size.width * 0.8,
+                    margin: const EdgeInsets.symmetric(horizontal: 2.0),
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(16.0),
+                      child: Image.asset(
+                        events[index].imageURL,
+                        fit: BoxFit.cover,
+                        filterQuality: FilterQuality.low,
+                      ),
                     ),
                   ),
                 ),
@@ -63,11 +66,16 @@ class HomeScreen extends StatelessWidget {
             label: 'BOOK NOW',
             onTap: () {},
           ),
-          Text(
-            'Department',
-            textAlign: TextAlign.center,
-            style: GoogleFonts.chakraPetch(
-                fontSize: 30, fontWeight: FontWeight.bold, color: Colors.white),
+          Padding(
+            padding: const EdgeInsets.fromLTRB(0, 5, 0, 10),
+            child: Text(
+              'Department',
+              textAlign: TextAlign.center,
+              style: GoogleFonts.chakraPetch(
+                  fontSize: 30,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.white),
+            ),
           ),
           SizedBox(
             height: 220.0,
@@ -101,7 +109,7 @@ class HomeScreen extends StatelessWidget {
               },
             ),
           ),
-          const SizedBox(height: 60.0),
+          const SizedBox(height: 70.0),
         ]),
       ),
     );

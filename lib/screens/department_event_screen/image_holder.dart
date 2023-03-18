@@ -6,6 +6,7 @@ import 'package:url_launcher/url_launcher.dart';
 
 import '../../widgets/dyuksha_logo_mini.dart';
 import 'clippers.dart';
+import 'dark_button.dart';
 
 int index = 0;
 int maxindex = 0;
@@ -22,7 +23,7 @@ class ImageHolder extends StatelessWidget {
     return LayoutBuilder(builder: (context, constraints) {
       return Column(
         children: [
-          ImageHolderTop(height: constraints.maxHeight * 0.2, dep: dep),
+          ImageHolderTop(height: constraints.maxHeight * 0.11, dep: dep),
           ImageHolderCenter(height: constraints.maxHeight),
         ],
       );
@@ -182,7 +183,7 @@ class _ImageHolderCenterState extends State<ImageHolderCenter> {
         ClipPath(
           clipper: ImageHolderCenterClipper(gap: 12.0),
           child: Container(
-            height: widget.height * 0.6,
+            height: widget.height * 0.65,
             width: double.infinity,
             color: Colors.black.withOpacity(0.5),
             child: SizedBox(
@@ -190,8 +191,8 @@ class _ImageHolderCenterState extends State<ImageHolderCenter> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   SizedBox(
-                    height: widget.height * 0.6,
-                    width: widget.height * 0.6,
+                    height: widget.height * 0.55,
+                    width: widget.height * 0.55,
                     child: FutureBuilder(
                       future: getData(),
                       builder: (BuildContext context,
@@ -217,7 +218,7 @@ class _ImageHolderCenterState extends State<ImageHolderCenter> {
         ClipPath(
           clipper: ImageHolderBottomClipper(slope: 24.0, gap: 12.0),
           child: Container(
-            height: widget.height * 0.2,
+            height: widget.height * 0.11,
             color: Colors.black.withOpacity(0.5),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -240,7 +241,6 @@ class _ImageHolderCenterState extends State<ImageHolderCenter> {
                 ),
                 Container(
                   padding: const EdgeInsets.all(16.0),
-                  margin: const EdgeInsets.only(top: 12.0),
                   decoration: BoxDecoration(
                     color: Colors.cyan,
                     borderRadius: BorderRadius.circular(12.0),
@@ -277,6 +277,49 @@ class _ImageHolderCenterState extends State<ImageHolderCenter> {
               ],
             ),
           ),
+        ),
+        SizedBox(
+          width: 24.0,
+          height: 24.0,
+        ),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            const DarkButton(
+              iconData: Icons.file_download_outlined,
+            ),
+            GestureDetector(
+              onTap: () async {
+                Uri url = Uri.parse(data[index].ticket);
+                await launchUrl(url, mode: LaunchMode.externalApplication);
+              },
+              child: Container(
+                padding: const EdgeInsets.symmetric(
+                  vertical: 16.0,
+                  horizontal: 28.0,
+                ),
+                decoration: BoxDecoration(
+                  color: Colors.transparent,
+                  border: Border.all(
+                    width: 1,
+                    color: Colors.white.withOpacity(0.2),
+                  ),
+                ),
+                child: Text(
+                  'REGISTER',
+                  style: GoogleFonts.chakraPetch(
+                    fontSize: 14,
+                    fontWeight: FontWeight.w600,
+                    color: Colors.white,
+                  ),
+                ),
+              ),
+            ),
+            const DarkButton(
+              iconData: Icons.share,
+            ),
+          ],
         )
       ],
     );
