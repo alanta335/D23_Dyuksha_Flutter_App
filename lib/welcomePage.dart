@@ -2,17 +2,9 @@ import 'package:d23_dyuksha/screens/day_wise_event_screen/day_wise_event_screen.
 import 'package:d23_dyuksha/screens/home_screen/home_screen.dart';
 import 'package:d23_dyuksha/widgets/FadeIndexedStack.dart';
 import 'package:d23_dyuksha/screens/about_screen/about_screen.dart';
-import 'package:d23_dyuksha/screens/event_screen/event_screen.dart';
-import 'package:d23_dyuksha/screens/home.dart';
 import 'package:d23_dyuksha/screens/talk_with_rj_screen/talk_with_rj_screen.dart';
 import 'package:d23_dyuksha/widgets/customScrollPhysics.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/scheduler.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
-
-import 'data/dummy_events.dart';
-import 'main.dart';
 
 class WelcomePage extends StatefulWidget {
   const WelcomePage({super.key});
@@ -30,7 +22,7 @@ class _WelcomePageState extends State<WelcomePage> {
   }
 
   int _currentIndex = 0;
-  var pageList = <Widget>[
+  final pageList = const <Widget>[
     HomeScreen(),
     TalkWithRJScreen(),
     DayWiseEventScreen(),
@@ -38,16 +30,6 @@ class _WelcomePageState extends State<WelcomePage> {
   ];
   @override
   Widget build(BuildContext context) {
-    final height = MediaQuery.of(context).size.height;
-    final width = MediaQuery.of(context).size.width;
-
-    // return Stack(children: [
-    //   Image.asset(
-    //     "assets/images/cyber_city.jpg",
-    //     height: MediaQuery.of(context).size.height,
-    //     width: MediaQuery.of(context).size.width,
-    //     fit: BoxFit.cover,
-    //   ),
     return Scaffold(
       extendBody: true,
       backgroundColor: Colors.transparent,
@@ -61,13 +43,12 @@ class _WelcomePageState extends State<WelcomePage> {
               bottomRight: Radius.circular(20)),
           child: BottomNavigationBar(
               currentIndex: _currentIndex,
-              //backgroundColor: Colors.transparent,
               onTap: (int index) {
                 setState(() {
                   _pageViewController.animateToPage(
                     curve: Curves.linear,
                     index,
-                    duration: Duration(milliseconds: 200),
+                    duration: const Duration(milliseconds: 200),
                   );
                 });
               },
@@ -104,10 +85,6 @@ class _WelcomePageState extends State<WelcomePage> {
           });
         },
       ),
-      // body: FadeIndexedStack(
-      //   index: _currentIndex,
-      //   children: pageList,
-      // ),
     );
   }
 }

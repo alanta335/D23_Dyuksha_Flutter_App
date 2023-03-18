@@ -6,6 +6,7 @@ class DayTabBar extends StatelessWidget {
   final CustomClipper<Path> clipper;
   final Color color;
   final String label;
+  final bool isSelected;
   final VoidCallback onTap;
   const DayTabBar({
     required this.width,
@@ -13,6 +14,7 @@ class DayTabBar extends StatelessWidget {
     required this.label,
     required this.color,
     required this.onTap,
+    required this.isSelected,
     super.key,
   });
 
@@ -29,8 +31,8 @@ class DayTabBar extends StatelessWidget {
           child: Text(
             label,
             style: GoogleFonts.chakraPetch(
-              fontWeight: FontWeight.w600,
-              fontSize: 16.0,
+              fontWeight: isSelected ? FontWeight.bold : FontWeight.w600,
+              fontSize: isSelected ? 16.0 : 12.0,
               color: Colors.black,
             ),
           ),
@@ -39,4 +41,3 @@ class DayTabBar extends StatelessWidget {
     );
   }
 }
-

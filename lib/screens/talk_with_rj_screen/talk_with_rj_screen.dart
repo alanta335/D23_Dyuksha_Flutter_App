@@ -37,15 +37,47 @@ class _TalkWithRJScreenState extends State<TalkWithRJScreen>
     super.dispose();
   }
 
+  bool _timerFree = true;
+
+  Future<void> _send() async {
+    if (_questionController.text.isEmpty) {
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+        content: Text("Please enter your question."),
+      ));
+      return;
+    }
+    Future.delayed(const Duration(seconds: 30), () {
+      setState(() {
+        _timerFree = true;
+      });
+    });
+    await cf.FirebaseFirestore.instance.collection('RJ').doc().set({
+      "Name": _nameController.text.toString(),
+      "Your Question": _questionController.text.toString(),
+    });
+    _nameController.clear();
+    _questionController.clear();
+    if (mounted) {
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+        content: Text(
+            "Your Question has been sent to the RJ.\nPlease wait 30 seconds more to send next message."),
+      ));
+    }
+    setState(() {
+      _timerFree = false;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return CyberpunkBackgroundScaffold(
-      child: Padding(
-        padding: const EdgeInsets.only(top: 18.0, left: 30.0, right: 30.0),
-        child: SingleChildScrollView(
+      child: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 22.0),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
+              const SizedBox(height: 12.0),
               const SafeArea(child: DyukshaLogoMini()),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -80,26 +112,11 @@ class _TalkWithRJScreenState extends State<TalkWithRJScreen>
                 ],
               ),
               Padding(
-                padding: const EdgeInsets.fromLTRB(0, 50, 0, 0),
+                padding: const EdgeInsets.fromLTRB(0, 32, 0, 0),
                 child: CyberpunkButton(
-                  color: Color.fromARGB(255, 251, 255, 6),
+                  color: Colors.yellow,
                   label: 'Send',
-                  onTap: () {
-                    cf.FirebaseFirestore.instance.collection('RJ').doc().set({
-                      "Name": _nameController.text.toString(),
-                      "Your Question": _questionController.text.toString(),
-                    });
-                    _nameController.text = "";
-                    _questionController.text = "";
-                    Fluttertoast.showToast(
-                      msg: "Send successful",
-                      toastLength: Toast.LENGTH_SHORT,
-                      timeInSecForIosWeb: 3,
-                      backgroundColor: Colors.yellowAccent,
-                      textColor: Color.fromARGB(255, 0, 0, 0),
-                      fontSize: 16.0,
-                    );
-                  },
+                  onTap: _timerFree ? _send : () {},
                 ),
               ),
               SizedBox(

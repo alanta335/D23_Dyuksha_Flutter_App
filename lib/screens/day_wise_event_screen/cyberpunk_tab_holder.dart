@@ -3,14 +3,19 @@ import 'package:flutter/material.dart';
 import 'clippers.dart';
 import 'day_tab_bar.dart';
 
-class CyberpunkTabBarHolder extends StatelessWidget {
+class CyberpunkTabBarHolder extends StatefulWidget {
   const CyberpunkTabBarHolder({
     super.key,
-    required TabController tabController,
-  }) : _tabController = tabController;
+    required this.tabController,
+  });
 
-  final TabController _tabController;
+  final TabController tabController;
 
+  @override
+  State<CyberpunkTabBarHolder> createState() => _CyberpunkTabBarHolderState();
+}
+
+class _CyberpunkTabBarHolderState extends State<CyberpunkTabBarHolder> {
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -26,21 +31,24 @@ class CyberpunkTabBarHolder extends StatelessWidget {
               clipper: DayOneTabBarClipper(),
               color: Colors.yellow,
               label: 'DAY 1',
-              onTap: () => _tabController.animateTo(0),
+              onTap: () => widget.tabController.animateTo(0),
+              isSelected: widget.tabController.index == 0,
             ),
             DayTabBar(
               width: constraints.maxWidth / 3 - 2.0,
               clipper: DayTwoClipper(),
               label: "DAY 2",
               color: Colors.red,
-              onTap: () => _tabController.animateTo(1),
+              onTap: () => widget.tabController.animateTo(1),
+              isSelected: widget.tabController.index == 1,
             ),
             DayTabBar(
               width: constraints.maxWidth / 3 - 2.0,
               clipper: DayThreeClipper(),
               label: "DAY 3",
               color: Colors.cyan,
-              onTap: () => _tabController.animateTo(2),
+              onTap: () => widget.tabController.animateTo(2),
+              isSelected: widget.tabController.index == 2,
             ),
           ],
         );
