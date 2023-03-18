@@ -13,9 +13,11 @@ class DarkButtonGroup extends StatelessWidget {
   });
 
   Future<void> _registerForEvent(BuildContext context) async {
-    final launched = await launchUrl(Uri.parse(event != null
-        ? event!.registrationURL
-        : "https://www.yepdesk.com/profile/dyuksha"));
+    final launched = await launchUrl(
+        mode: LaunchMode.externalApplication,
+        Uri.parse(event != null
+            ? event!.registrationURL
+            : "https://www.yepdesk.com/profile/dyuksha"));
     if (!launched) {
       if (context.mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
