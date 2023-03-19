@@ -75,9 +75,9 @@ class Event {
       return Department.mech;
     } else if (department.toLowerCase().compareTo("civil") == 0) {
       return Department.civil;
-    } else if (department.toLowerCase().compareTo("ic") == 0) {
+    } else if (department.toLowerCase().compareTo("ice") == 0) {
       return Department.ice;
-    } else if (department.toLowerCase().compareTo("ec") == 0) {
+    } else if (department.toLowerCase().compareTo("ece") == 0) {
       return Department.ece;
     } else if (department.toLowerCase().compareTo("nss") == 0) {
       return Department.nss;
