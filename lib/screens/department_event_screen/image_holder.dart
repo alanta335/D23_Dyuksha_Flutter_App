@@ -27,6 +27,14 @@ class ImageHolder extends StatefulWidget {
 class _ImageHolderState extends State<ImageHolder> {
   int currentIndex = 0;
 
+  @override
+  void initState() {
+    super.initState();
+    Future.delayed(const Duration(milliseconds: 100), () {
+      widget.onIndexChanged(currentIndex);
+    });
+  }
+
   void _onForwardTap() {
     setState(() {
       currentIndex = (currentIndex + 1) % widget.departmentEvents.length;

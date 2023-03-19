@@ -7,7 +7,7 @@ import '../../models/event.dart';
 import 'dark_button.dart';
 
 class DarkButtonGroup extends StatelessWidget {
-  final Event? event;
+  final Event event;
   const DarkButtonGroup({
     required this.event,
     super.key,
@@ -15,9 +15,7 @@ class DarkButtonGroup extends StatelessWidget {
 
   Future<void> _registerForEvent(BuildContext context) async {
     final launched = await launchUrl(
-        mode: LaunchMode.externalApplication,
-        Uri.parse(
-            event == null ? "https://dyuksha.org" : event!.registrationURL));
+        mode: LaunchMode.externalApplication, Uri.parse(event.registrationURL));
     if (!launched) {
       if (context.mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
@@ -31,12 +29,10 @@ class DarkButtonGroup extends StatelessWidget {
   }
 
   Future<void> _share() async {
-    if (event != null) {
-      Share.share(
-        "${event!.name}\n\nABOUT\n\n${event!.about}\n\nCoordinator:${event!.coordintorName}\nContact:${event!.contact}",
-        subject: event!.name,
-      );
-    }
+    await Share.share(
+      "${event.name}\n\nABOUT\n\n${event.about}\n\nCoordinator:${event.coordintorName}\nContact:${event.contact}",
+      subject: event.name,
+    );
   }
 
   Future<void> _download() async {}
