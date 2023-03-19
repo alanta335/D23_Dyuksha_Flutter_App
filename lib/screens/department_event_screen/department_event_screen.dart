@@ -20,7 +20,18 @@ class DepartmentEventScreen extends StatefulWidget {
 }
 
 class _DepartmentEventScreenState extends State<DepartmentEventScreen> {
-  Event? event;
+  Event event = Event(
+    about: "Loading...",
+    category: EventCategory.nss,
+    contact: "0000000000",
+    coordintorName: "Loading...",
+    day: 1,
+    department: Department.nss,
+    imageURL: "",
+    name: "Loading...",
+    registrationURL: "https://www.dyuksha.org",
+    time: "00:00AM",
+  );
 
   @override
   Widget build(BuildContext context) {
@@ -46,6 +57,7 @@ class _DepartmentEventScreenState extends State<DepartmentEventScreen> {
                         setState(() {
                           print(index);
                           event = events[index];
+                          print(events[index].name);
                         });
                       },
                       department: widget.department,
