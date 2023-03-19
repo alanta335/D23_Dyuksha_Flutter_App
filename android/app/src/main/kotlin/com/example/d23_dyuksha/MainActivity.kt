@@ -1,4 +1,4 @@
-package com.example.d23_dyuksha
+package com.dyuksha.d23
 
 import io.flutter.embedding.android.FlutterActivity
 
