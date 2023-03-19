@@ -30,6 +30,14 @@
           }
         },
         {
+          "client_id": "18744469513-fmb875akn7hfqs95riosbl86ilgrp4ef.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.dyuksha.d23",
+            "certificate_hash": "c4257bed6b3e6d84990a431ce1685b22f925e0d3"
+          }
+        },
+        {
           "client_id": "18744469513-h0iofu5fie1pi4o8rqeaqtc5dk3i592l.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
