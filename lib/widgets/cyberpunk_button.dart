@@ -3,14 +3,13 @@ import 'package:google_fonts/google_fonts.dart';
 
 class CyberpunkButton extends StatefulWidget {
   final Color color;
-  final VoidCallback onTap;
+  final VoidCallback? onTap;
   final String label;
-  final bool isPressed;
+
   const CyberpunkButton({
     required this.color,
     required this.label,
     required this.onTap,
-    this.isPressed = false,
     super.key,
   });
 
@@ -18,18 +17,41 @@ class CyberpunkButton extends StatefulWidget {
   State<CyberpunkButton> createState() => _CyberpunkButtonState();
 }
 
-class _CyberpunkButtonState extends State<CyberpunkButton> {
+class _CyberpunkButtonState extends State<CyberpunkButton>
+    with AutomaticKeepAliveClientMixin<CyberpunkButton> {
   bool _isPressed = false;
+
+  @override
+  void initState() {
+    super.initState();
+    setState(() {
+      _isPressed = false;
+    });
+  }
+
+  @override
+  void dispose() {
+    if (mounted) {
+      setState(() {
+        _isPressed = false;
+      });
+    }
+    super.dispose();
+  }
 
   void _onTap() {
     setState(() {
       _isPressed = !_isPressed;
     });
-    widget.onTap();
+    if (widget.onTap != null) {
+      widget.onTap!();
+    }
     Future.delayed(const Duration(milliseconds: 160), () {
-      setState(() {
-        _isPressed = !_isPressed;
-      });
+      if (mounted) {
+        setState(() {
+          _isPressed = !_isPressed;
+        });
+      }
     });
   }
 
@@ -59,7 +81,7 @@ class _CyberpunkButtonState extends State<CyberpunkButton> {
               ),
             ),
           ),
-          if (!_isPressed && widget.isPressed)
+          if (!_isPressed && widget.onTap != null)
             Padding(
               padding: const EdgeInsets.only(
                 bottom: 8.0,
@@ -88,6 +110,9 @@ class _CyberpunkButtonState extends State<CyberpunkButton> {
       ),
     );
   }
+
+  @override
+  bool get wantKeepAlive => true;
 }
 
 class ButtonClipper extends CustomClipper<Path> {
