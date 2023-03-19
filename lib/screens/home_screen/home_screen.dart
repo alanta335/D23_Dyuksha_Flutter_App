@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:d23_dyuksha/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:carousel_slider/carousel_slider.dart';
@@ -6,7 +7,6 @@ import 'package:url_launcher/url_launcher.dart';
 
 import '../../models/event.dart';
 import '../../widgets/cypberpunk_background_scaffold.dart';
-//import '../../data/data.dart';
 import '../../widgets/cyberpunk_button.dart';
 import '../department_event_screen/department_event_screen.dart';
 import '../event_screen/event_screen.dart';
@@ -19,13 +19,18 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  @override
+  void initState() {
+    super.initState();
+  }
+
   Future<void> _bookShow(BuildContext context) async {
     final result = await launchUrl(
         mode: LaunchMode.externalApplication,
         Uri.parse("https://www.dyuksha.org/proshows"));
     if (!result) {
-      if (!context.mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+      if (context.mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
             content:
                 Text("Please check your internet connection and try again.")));
       }
@@ -37,14 +42,15 @@ class _HomeScreenState extends State<HomeScreen> {
   Future getData() async {
     CollectionReference proshow =
         FirebaseFirestore.instance.collection('events');
-    //.collection("day3");
     QuerySnapshot q = await proshow.get();
     events = q.docs
         .map((doc) => Event.fromJson(doc.data() as Map<String, dynamic>, 1))
         .toList();
-    setState(() {
-      loaded = true;
-    });
+    if (mounted) {
+      setState(() {
+        loaded = true;
+      });
+    }
   }
 
   var loaded = false;
@@ -56,18 +62,27 @@ class _HomeScreenState extends State<HomeScreen> {
       appBar: AppBar(
         elevation: 0,
         backgroundColor: Colors.transparent,
-        title: Transform.scale(
-          scale: 0.55,
-          child: Image.asset(
-            "assets/images/d23_logo_text.png",
-            fit: BoxFit.cover,
+        title: GestureDetector(
+          onTap: () {
+            buttonClickCount++;
+            if (buttonClickCount == buttonClickLimit) {
+              confettiControllerLeft.play();
+              confettiControllerRight.play();
+              buttonClickCount = 0;
+            }
+          },
+          child: Transform.scale(
+            scale: 0.55,
+            child: Image.asset(
+              "assets/images/d23_logo_text.png",
+              fit: BoxFit.cover,
+            ),
           ),
         ),
       ),
       child: SingleChildScrollView(
         child:
             Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
-          //SizedBox(height)
           Padding(
             padding: const EdgeInsets.fromLTRB(0, 20, 0, 10),
             child: SizedBox(
@@ -120,18 +135,6 @@ class _HomeScreenState extends State<HomeScreen> {
                             }),
                           ),
                         ),
-                        // child: Container(
-                        //   width: MediaQuery.of(context).size.width * 0.8,
-                        //   margin: const EdgeInsets.symmetric(horizontal: 2.0),
-                        //   child: ClipRRect(
-                        //     borderRadius: BorderRadius.circular(16.0),
-                        //     child: Image.network(
-                        //       events[index].imageURL,
-                        //       fit: BoxFit.cover,
-                        //       filterQuality: FilterQuality.low,
-                        //     ),
-                        //   ),
-                        // ),
                       ),
                     )
                   : const Center(
@@ -143,14 +146,13 @@ class _HomeScreenState extends State<HomeScreen> {
             color: Colors.red,
             label: 'BOOK NOW',
             onTap: () {
-              launchUrl(Uri.parse("https://www.yepdesk.com/profile/dyuksha"),
-                  mode: LaunchMode.externalApplication);
+              _bookShow(context);
             },
           ),
           Padding(
             padding: const EdgeInsets.fromLTRB(0, 5, 0, 10),
             child: Text(
-              'Department',
+              'Departments',
               textAlign: TextAlign.center,
               style: GoogleFonts.chakraPetch(
                   fontSize: 30,

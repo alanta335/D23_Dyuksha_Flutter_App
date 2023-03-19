@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:share_plus/share_plus.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../../models/event.dart';
 import 'dark_button.dart';
 
 class DarkButtonGroup extends StatelessWidget {
-  final Event? event;
+  final Event event;
   const DarkButtonGroup({
     required this.event,
     super.key,
@@ -14,10 +15,7 @@ class DarkButtonGroup extends StatelessWidget {
 
   Future<void> _registerForEvent(BuildContext context) async {
     final launched = await launchUrl(
-        mode: LaunchMode.externalApplication,
-        Uri.parse(event != null
-            ? event!.registrationURL
-            : "https://www.yepdesk.com/profile/dyuksha"));
+        mode: LaunchMode.externalApplication, Uri.parse(event.registrationURL));
     if (!launched) {
       if (context.mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
@@ -30,6 +28,15 @@ class DarkButtonGroup extends StatelessWidget {
     }
   }
 
+  Future<void> _share() async {
+    await Share.share(
+      "*****DYUKSHA'23*****\n\n${event.name}\n\nABOUT\n\n${event.about}\n\nCoordinator:${event.coordintorName}\nContact:${event.contact}",
+      subject: event.name,
+    );
+  }
+
+  Future<void> _download() async {}
+
   @override
   Widget build(BuildContext context) {
     return Align(
@@ -40,8 +47,9 @@ class DarkButtonGroup extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const DarkButton(
+            DarkButton(
               iconData: Icons.file_download_outlined,
+              onTap: _download,
             ),
             GestureDetector(
               onTap: () => _registerForEvent(context),
@@ -67,8 +75,9 @@ class DarkButtonGroup extends StatelessWidget {
                 ),
               ),
             ),
-            const DarkButton(
+            DarkButton(
               iconData: Icons.share,
+              onTap: _share,
             ),
           ],
         ),
