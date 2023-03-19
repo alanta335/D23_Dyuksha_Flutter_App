@@ -1,4 +1,7 @@
 import 'package:animated_splash_screen/animated_splash_screen.dart';
+import 'package:bot_toast/bot_toast.dart';
+import 'package:confetti/confetti.dart';
+import 'package:d23_dyuksha/constants.dart';
 import 'package:d23_dyuksha/welcomePage.dart';
 import 'package:d23_dyuksha/widgets/cypberpunk_background_scaffold.dart';
 import 'package:flutter/material.dart';
@@ -13,6 +16,11 @@ Future<void> main() async {
     DeviceOrientation.portraitDown,
     DeviceOrientation.portraitUp,
   ]);
+  confettiControllerLeft =
+      ConfettiController(duration: const Duration(seconds: 2));
+  confettiControllerRight =
+      ConfettiController(duration: const Duration(seconds: 2));
+
   runApp(const MyApp());
 }
 
@@ -22,6 +30,8 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+        builder: BotToastInit(),
+        navigatorObservers: [BotToastNavigatorObserver()],
         debugShowCheckedModeBanner: false,
         theme: ThemeData(
           primarySwatch: Colors.blue,

@@ -23,19 +23,11 @@ class EventScreen extends StatelessWidget {
       result = await launchUrl(
           mode: LaunchMode.externalApplication,
           Uri.parse(event.registrationURL));
-    } on PlatformException catch (e) {
-      print(e.toString()); //Log
-      MotionToast.error(
-              description: const Text(
-                  "Unable to open the website.\nCheck your internet connection and try again."))
-          .show(context);
-    }
+    } on PlatformException catch (e) {}
     if (!result && context.mounted) {
-      print("Something went wrong"); //Log
-      MotionToast.error(
-              description: const Text(
-                  "Unable to open the website.\nCheck your internet connection and try again."))
-          .show(context);
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+          content: Text(
+              "Unable to connect to dyuksha website.\nPlease check your internet connection and try again.")));
     }
   }
 

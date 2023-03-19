@@ -5,12 +5,14 @@ class CyberpunkTextField extends StatelessWidget {
   final TextEditingController controller;
   final int maxLines;
   final String label;
+  final bool isActive;
 
   const CyberpunkTextField({
     super.key,
     required this.controller,
     required this.label,
     this.maxLines = 1,
+    required this.isActive,
   });
 
   @override
@@ -28,6 +30,7 @@ class CyberpunkTextField extends StatelessWidget {
         ),
         const SizedBox(height: 12.0),
         TextField(
+          enabled: isActive,
           minLines: maxLines,
           maxLines: maxLines != 1 ? maxLines + 4 : 1,
           style: GoogleFonts.chakraPetch(
