@@ -30,7 +30,7 @@ class DarkButtonGroup extends StatelessWidget {
 
   Future<void> _share() async {
     await Share.share(
-      "${event.name}\n\nABOUT\n\n${event.about}\n\nCoordinator:${event.coordintorName}\nContact:${event.contact}",
+      "*****DYUKSHA'23*****\n\n${event.name}\n\nABOUT\n\n${event.about}\n\nCoordinator:${event.coordintorName}\nContact:${event.contact}",
       subject: event.name,
     );
   }
