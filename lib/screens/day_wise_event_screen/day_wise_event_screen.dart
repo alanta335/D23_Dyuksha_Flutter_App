@@ -3,6 +3,7 @@ import 'package:d23_dyuksha/models/event.dart';
 import 'package:d23_dyuksha/services/firestore_wrapper.dart';
 import 'package:d23_dyuksha/widgets/list_item_builder.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 import '../../widgets/cypberpunk_background_scaffold.dart';
 import '/widgets/dyuksha_logo_mini.dart';
@@ -89,6 +90,7 @@ class ListViewBuilder extends StatelessWidget {
       builder: (context, snapshot) => ListItemBuilder(
         snapshot: snapshot,
         itemBuilder: (_, event) => EventTile(event: event),
+        compare: (e1, e2) => e1.name.compareTo(e2.name),
       ),
     );
   }

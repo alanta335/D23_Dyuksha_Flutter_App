@@ -1,10 +1,7 @@
-import 'package:d23_dyuksha/screens/about_screen/about_screen.dart';
 import 'package:d23_dyuksha/screens/event_screen/event_screen.dart';
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:url_launcher/url_launcher.dart';
-
 import '../../models/event.dart';
 import '../../widgets/dyuksha_logo_mini.dart';
 import 'clippers.dart';

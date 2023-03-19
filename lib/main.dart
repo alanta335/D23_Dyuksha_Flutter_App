@@ -1,9 +1,8 @@
 import 'package:animated_splash_screen/animated_splash_screen.dart';
-import 'package:bot_toast/bot_toast.dart';
+
 import 'package:confetti/confetti.dart';
 import 'package:d23_dyuksha/constants.dart';
 import 'package:d23_dyuksha/welcomePage.dart';
-import 'package:d23_dyuksha/widgets/cypberpunk_background_scaffold.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/services.dart';
@@ -30,8 +29,6 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-        builder: BotToastInit(),
-        navigatorObservers: [BotToastNavigatorObserver()],
         debugShowCheckedModeBanner: false,
         theme: ThemeData(
           primarySwatch: Colors.blue,

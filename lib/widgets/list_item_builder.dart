@@ -8,6 +8,7 @@ class ListItemBuilder<T> extends StatelessWidget {
   final Widget? errorWidget;
   final Widget? loadingWidget;
   final bool Function(T)? filter;
+  final int Function(T, T)? compare;
   const ListItemBuilder({
     super.key,
     required this.snapshot,
@@ -16,6 +17,7 @@ class ListItemBuilder<T> extends StatelessWidget {
     this.errorWidget,
     this.loadingWidget,
     this.filter,
+    this.compare,
   });
 
   @override
@@ -27,6 +29,9 @@ class ListItemBuilder<T> extends StatelessWidget {
           items.retainWhere(filter!);
         }
         if (items.isNotEmpty) {
+          if (compare != null) {
+            items.sort(compare);
+          }
           return ListView.builder(
             itemCount: items.length,
             itemBuilder: (context, index) {
