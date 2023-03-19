@@ -66,7 +66,7 @@ class EventTile extends StatelessWidget {
                   children: [
                     Expanded(
                       child: Text(
-                        event.name,
+                        event.name.toUpperCase(),
                         textAlign: TextAlign.center,
                         style: GoogleFonts.chakraPetch(
                           fontWeight: FontWeight.w600,
@@ -95,7 +95,7 @@ class EventTile extends StatelessWidget {
                             padding:
                                 const EdgeInsets.only(right: 24.0, top: 36.0),
                             child: Text(
-                              event.time,
+                              event.time.toUpperCase(),
                               style: GoogleFonts.chakraPetch(
                                 fontWeight: FontWeight.w400,
                                 fontSize: 9.0,
