@@ -50,7 +50,7 @@ class _CyberpunkButtonState extends State<CyberpunkButton> {
                 horizontal: 26.0,
               ),
               child: Text(
-                widget.label,
+                widget.label.toUpperCase(),
                 style: GoogleFonts.chakraPetch(
                   fontWeight: FontWeight.w600,
                   fontSize: 16.0,
@@ -74,7 +74,7 @@ class _CyberpunkButtonState extends State<CyberpunkButton> {
                     horizontal: 26.0,
                   ),
                   child: Text(
-                    widget.label,
+                    widget.label.toUpperCase(),
                     style: GoogleFonts.chakraPetch(
                       fontWeight: FontWeight.w600,
                       fontSize: 16.0,
