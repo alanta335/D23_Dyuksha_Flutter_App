@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:share_plus/share_plus.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../../models/event.dart';
@@ -15,9 +16,8 @@ class DarkButtonGroup extends StatelessWidget {
   Future<void> _registerForEvent(BuildContext context) async {
     final launched = await launchUrl(
         mode: LaunchMode.externalApplication,
-        Uri.parse(event != null
-            ? event!.registrationURL
-            : "https://www.yepdesk.com/profile/dyuksha"));
+        Uri.parse(
+            event == null ? "https://dyuksha.org" : event!.registrationURL));
     if (!launched) {
       if (context.mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
@@ -30,6 +30,17 @@ class DarkButtonGroup extends StatelessWidget {
     }
   }
 
+  Future<void> _share() async {
+    if (event != null) {
+      Share.share(
+        "${event!.name}\n\nABOUT\n\n${event!.about}\n\nCoordinator:${event!.coordintorName}\nContact:${event!.contact}",
+        subject: event!.name,
+      );
+    }
+  }
+
+  Future<void> _download() async {}
+
   @override
   Widget build(BuildContext context) {
     return Align(
@@ -40,8 +51,9 @@ class DarkButtonGroup extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const DarkButton(
+            DarkButton(
               iconData: Icons.file_download_outlined,
+              onTap: _download,
             ),
             GestureDetector(
               onTap: () => _registerForEvent(context),
@@ -67,8 +79,9 @@ class DarkButtonGroup extends StatelessWidget {
                 ),
               ),
             ),
-            const DarkButton(
+            DarkButton(
               iconData: Icons.share,
+              onTap: _share,
             ),
           ],
         ),
