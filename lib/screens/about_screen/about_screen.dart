@@ -13,7 +13,7 @@ class AboutScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return CyberpunkBackgroundScaffold(
-      bgImage: 'assets/images/App_BG.jpg',
+      bgImage: 'assets/images/cyber_city.jpg',
       blur: false,
       child: Padding(
         padding: const EdgeInsets.only(top: 40.0, left: 30.0, right: 30.0),
