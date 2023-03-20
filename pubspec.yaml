@@ -26,6 +26,9 @@ dependencies:
   transformer_page_view: ^0.1.6
   firebase_storage: ^11.0.16
   firebase_performance: ^0.9.0+16
+  pdf: ^3.9.0
+  printing: ^5.10.1
+  path_provider: ^2.0.13
   internet_connection_checker: ^1.0.0+1
 flutter_native_splash:
   ios: false
