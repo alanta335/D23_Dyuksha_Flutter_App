@@ -17,6 +17,15 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.3.0"
+  animated_text:
+    dependency: "direct main"
+    description:
+      path: "."
+      ref: HEAD
+      resolved-ref: "30a480ac4c781c10c53eeeafffbd3fc8b0ce25fa"
+      url: "https://github.com/josorio9111/animated_text.git"
+    source: git
+    version: "1.0.5-null-safety"
   archive:
     dependency: transitive
     description:
@@ -193,6 +202,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.0.5"
+  f_glitch:
+    dependency: "direct main"
+    description:
+      name: f_glitch
+      sha256: d682bc7e449f9c155e64f07028b19e5eeff463682d5d26f728f20e2d2e1fdca1
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.1.2"
   fake_async:
     dependency: transitive
     description:
@@ -217,6 +234,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "6.1.4"
+  file_picker:
+    dependency: "direct main"
+    description:
+      name: file_picker
+      sha256: d8e9ca7e5d1983365c277f12c21b4362df6cf659c99af146ad4d04eb33033013
+      url: "https://pub.dev"
+    source: hosted
+    version: "5.2.6"
   firebase_auth:
     dependency: "direct main"
     description:
@@ -350,6 +375,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.2.19"
+  flutter_plugin_android_lifecycle:
+    dependency: transitive
+    description:
+      name: flutter_plugin_android_lifecycle
+      sha256: c224ac897bed083dabf11f238dd11a239809b446740be0c2044608c50029ffdf
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.0.9"
   flutter_test:
     dependency: "direct dev"
     description: flutter
@@ -360,6 +393,14 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
+  glitcheffect:
+    dependency: "direct main"
+    description:
+      name: glitcheffect
+      sha256: "44ba4ab53f31dc58b2d490b9253b38733205c9177bf4d804ba24159f310a232e"
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.1.1"
   google_fonts:
     dependency: "direct main"
     description:
@@ -505,7 +546,7 @@ packages:
     source: hosted
     version: "1.0.1"
   path_provider:
-    dependency: "direct main"
+    dependency: transitive
     description:
       name: path_provider
       sha256: "04890b994ee89bfa80bf3080bfec40d5a92c5c7a785ebb02c13084a099d2b6f9"

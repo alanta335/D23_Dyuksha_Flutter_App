@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:path_provider/path_provider.dart';
@@ -41,8 +42,10 @@ class DarkButtonGroup extends StatelessWidget {
   }
 
   Future<void> _download() async {
+    print("start");
     try {
-      final output = await getDownloadsDirectory();
+      final output = await FilePicker.platform.getDirectoryPath();
+      //print(output.toString());
       if (output == null) {
         return;
       }
@@ -53,7 +56,7 @@ class DarkButtonGroup extends StatelessWidget {
       final fontStyleSemiBold = await PdfGoogleFonts.chakraPetchSemiBold();
 
       final eventImage = await networkImage(event.imageURL);
-      File file = File("${output.path}/dyuksha23_${event.name}.pdf");
+      File file = File("${output}/dyuksha23_${event.name}.pdf");
 
       pdf.addPage(
         pw.MultiPage(
@@ -176,7 +179,10 @@ class DarkButtonGroup extends StatelessWidget {
       );
 
       await file.writeAsBytes(await pdf.save());
-    } catch (e) {}
+      print("end");
+    } catch (e) {
+      print(e);
+    }
   }
 
   @override
