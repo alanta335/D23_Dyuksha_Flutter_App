@@ -127,7 +127,7 @@ class _WelcomePageState extends State<WelcomePage> {
                         'ABHIN SURESH S',
                         'ALEENA KT',
                         'SPECIAL MENTION',
-                        'ABISHEK P V',
+                        'ABHISHEK P V',
                         'JOSEPH FERNANDEZ',
                       ],
                       textStyle: GoogleFonts.merienda(
