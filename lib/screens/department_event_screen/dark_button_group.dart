@@ -48,11 +48,17 @@ class DarkButtonGroup extends StatelessWidget {
       }
 
       final pdf = pw.Document();
-      final fontStyleBold = await PdfGoogleFonts.chakraPetchBold();
-      final fontStyleRegular = await PdfGoogleFonts.chakraPetchRegular();
+      final fontStyleBold =     await PdfGoogleFonts.chakraPetchBold();
+      final fontStyleRegular =  await PdfGoogleFonts.chakraPetchRegular();
       final fontStyleSemiBold = await PdfGoogleFonts.chakraPetchSemiBold();
+      var eventImage;
 
-      final eventImage = await networkImage(event.imageURL);
+      try {
+        eventImage = await networkImage(event.imageURL);
+      } on FlutterError {
+        eventImage = pw.MemoryImage(
+            File("assets/images/placeholder_dyuksha.jpg").readAsBytesSync());
+      }
       File file = File("${output.path}/dyuksha23_${event.name}.pdf");
 
       pdf.addPage(
