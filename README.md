@@ -1,16 +1,17 @@
 # d23_dyuksha
+Mobile application developed as part of DYUKSHA 23, NSSCE
 
-A new Flutter project.
+## About this application
 
-## Getting Started
+An android application developed from scratch for Technical-fest Dyuksha, NSSCE 
+The app was developed in Flutter, with firebase as backend
 
-This project is a starting point for a Flutter application.
+[Developers]
+ - Akhil Krishna S
+ - Alan T A
+ - Harikrishnan B A
+ - Anoop P K
 
-A few resources to get you started if this is your first Flutter project:
+## Screens
+![ScreenShot](https://raw.github.com/ilmentore72/D23_Dyuksha/master/Screenshots/Screen11%20PM.jpeg)
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
