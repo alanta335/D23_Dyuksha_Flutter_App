@@ -6,7 +6,7 @@ Mobile application developed as part of DYUKSHA 23, NSSCE
 An android application developed from scratch for Technical-fest Dyuksha, NSSCE 
 The app was developed in Flutter, with firebase as backend
 
-[Developers]
+##Developers
  - Akhil Krishna S
  - Alan T A
  - Harikrishnan B A
