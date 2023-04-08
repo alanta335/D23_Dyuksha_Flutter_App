@@ -14,4 +14,6 @@ The app was developed in Flutter, with firebase as backend
 
 ## Screens
 ![ScreenShot](https://raw.github.com/ilmentore72/D23_Dyuksha/master/Screenshots/Screen11%20PM.jpeg)
-
+![ScreenShot](https://raw.github.com/ilmentore72/D23_Dyuksha/master/Screenshots/Screen12%20PM%20(1).jpeg) ![ScreenShot](https://raw.github.com/ilmentore72/D23_Dyuksha/master/Screenshots/Screen12%20PM%20(2).jpeg)
+![ScreenShot](https://raw.github.com/ilmentore72/D23_Dyuksha/master/Screenshots/Screen12%20PM%20(3).jpeg) ![ScreenShot](https://raw.github.com/ilmentore72/D23_Dyuksha/master/Screenshots/Screen12%20PM.jpeg)
+![ScreenShot](https://raw.github.com/ilmentore72/D23_Dyuksha/master/Screenshots/Screen20%20PM.jpeg)
